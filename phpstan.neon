@@ -1,0 +1,19 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+        - routes
+
+    level: 8
+
+    checkModelProperties: true
+    inferPrivatePropertyTypeFromConstructor: true
+    #    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors:
+    # Ignore errors in subqueries because they are false-positives due to a laravel/larastan bug: https://github.com/larastan/larastan/issues/2222
+    #        - '#Parameter \#1 \$column of method Illuminate\\Database\\Eloquent\\Builder.*where\(\) expects array.*|.*model property of Illuminate\\Database\\Eloquent\\Model, .* given\.#'
+
+    databaseMigrationsPath:
+        - database/migrations

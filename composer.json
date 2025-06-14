@@ -17,13 +17,17 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.4",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.18",
+        "laravel/pint": "^1.22",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
         "pestphp/pest": "^3.8",
-        "pestphp/pest-plugin-laravel": "^3.2"
+        "pestphp/pest-plugin-laravel": "^3.2",
+        "pestphp/pest-plugin-type-coverage": "^3.5",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -57,9 +61,19 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
         ],
+        "format": "vendor/bin/pint",
+        "rector": "rector",
+        "test:rector": "rector --dry-run",
+        "test:type-coverage": "vendor/bin/pest --type-coverage --memory-limit=1G --min=100",
+        "test:lint": "vendor/bin/pint --test",
+        "test:unit": "XDEBUG_MODE=coverage vendor/bin/pest --colors=always --parallel --coverage --min=90",
+        "test:types": "vendor/bin/phpstan analyse --memory-limit=1G --ansi",
         "test": [
-            "@php artisan config:clear --ansi",
-            "@php artisan test"
+            "@test:lint",
+            "@test:type-coverage",
+            "@test:rector",
+            "@test:types",
+            "@test:unit"
         ]
     },
     "extra": {
