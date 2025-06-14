@@ -34,7 +34,7 @@ final class Password extends Component
             throw $validationException;
         }
 
-        Auth::user()->update([
+        Auth::user()?->update([
             'password' => Hash::make($validated['password']),
         ]);
 

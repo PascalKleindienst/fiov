@@ -21,8 +21,10 @@ final class Profile extends Component
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        if (Auth::user()) {
+            $this->name = Auth::user()->name;
+            $this->email = Auth::user()->email;
+        }
     }
 
     /**
@@ -31,6 +33,10 @@ final class Profile extends Component
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
+
+        if (! $user) {
+            return;
+        }
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -63,7 +69,7 @@ final class Profile extends Component
     {
         $user = Auth::user();
 
-        if ($user->hasVerifiedEmail()) {
+        if (! $user || $user->hasVerifiedEmail()) {
             $this->redirectIntended(default: route('dashboard', absolute: false));
 
             return;

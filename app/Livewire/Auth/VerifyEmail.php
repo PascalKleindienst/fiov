@@ -18,13 +18,13 @@ final class VerifyEmail extends Component
      */
     public function sendVerification(): void
     {
-        if (Auth::user()->hasVerifiedEmail()) {
+        if (Auth::user()?->hasVerifiedEmail()) {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
 
             return;
         }
 
-        Auth::user()->sendEmailVerificationNotification();
+        Auth::user()?->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
     }
