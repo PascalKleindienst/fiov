@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Cknow\Money\Casts\MoneyDecimalCast;
 use Database\Factories\WalletTransactionFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,6 +56,7 @@ final class WalletTransaction extends Model
     {
         return [
             'is_investment' => 'boolean',
+            'amount' => MoneyDecimalCast::class.':currency',
         ];
     }
 }
