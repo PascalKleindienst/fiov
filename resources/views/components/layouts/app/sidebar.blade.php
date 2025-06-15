@@ -11,9 +11,32 @@
                 <x-app-logo />
             </a>
 
+            {{-- TODO: Add notifications --}}
+            <flux:modal.trigger name="edit-profile">
+                <flux:button icon="bell" square class="relative" variant="ghost">
+                    <flux:badge class="absolute -top-2 -right-2" variant="solid" color="green" size="sm">2</flux:badge>
+                </flux:button>
+            </flux:modal.trigger>
+            <flux:modal name="edit-profile" variant="flyout">
+                <div class="space-y-6">
+                    <flux:heading size="xl">Notifications</flux:heading>
+                    <div class="space-y-6 divide-y divide-zinc-200">
+                        @for ($i = 0; $i < 5; $i++)
+                            <div class="pb-6">
+                                <flux:heading>User profile</flux:heading>
+                                <flux:text class="mt-2">This information will be displayed publicly.</flux:text>
+                                <flux:text>3min ago</flux:text>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+            </flux:modal>
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                        {{ __('Dashboard') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -21,21 +44,17 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                    {{ __('Repository') }}
                 </flux:navlist.item>
 
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
+                    {{ __('Documentation') }}
                 </flux:navlist.item>
             </flux:navlist>
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-                <flux:profile
-                    :name="auth()->user()->name"
-                    :initials="auth()->user()->initials()"
-                    icon:trailing="chevrons-up-down"
-                />
+                <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()" icon:trailing="chevrons-up-down" />
 
                 <flux:menu class="w-[220px]">
                     <flux:menu.radio.group>
@@ -82,10 +101,7 @@
             <flux:spacer />
 
             <flux:dropdown position="top" align="end">
-                <flux:profile
-                    :initials="auth()->user()->initials()"
-                    icon-trailing="chevron-down"
-                />
+                <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
                 <flux:menu>
                     <flux:menu.radio.group>

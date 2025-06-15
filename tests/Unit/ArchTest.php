@@ -26,6 +26,7 @@ arch('avoid mutation')
         'App\Http\Resources',
         'App\Queries',
         'App\Livewire',
+        'App\Notifications',
     ]);
 
 arch('avoid inheritance')
@@ -41,6 +42,7 @@ arch('avoid inheritance')
         'App\Livewire',
         'App\Http\Requests',
         'App\Http\Resources',
+        'App\Notifications',
     ]);
 
 // arch('annotations')
@@ -87,6 +89,7 @@ arch('models')
         'App\Queries',
         'App\Contracts',
         'App\Livewire',
+        'App\Notifications',
     ]);
 
 arch('actions')
