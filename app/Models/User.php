@@ -6,6 +6,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -48,6 +50,30 @@ final class User extends Authenticatable implements MustVerifyEmail
             ->take(2)
             ->map(fn (string $word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * @return HasMany<Wallet, $this>
+     */
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    /**
+     * @return HasMany<WalletCategory, $this>
+     */
+    public function walletCategories(): HasMany
+    {
+        return $this->hasMany(WalletCategory::class);
+    }
+
+    /**
+     * @return HasManyThrough<WalletTransaction, Wallet, $this>
+     */
+    public function walletTransactions(): HasManyThrough
+    {
+        return $this->hasManyThrough(WalletTransaction::class, Wallet::class)->with(['wallet', 'category'])->latest();
     }
 
     /**
