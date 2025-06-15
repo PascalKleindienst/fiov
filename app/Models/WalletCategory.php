@@ -10,6 +10,32 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string|null $icon
+ * @property string|null $color
+ * @property int $user_id
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletTransaction> $transactions
+ * @property-read int|null $transactions_count
+ * @property-read \App\Models\User $user
+ *
+ * @method static \Database\Factories\WalletCategoryFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUserId($value)
+ *
+ * @mixin \Eloquent
+ */
 final class WalletCategory extends Model
 {
     /** @use HasFactory<WalletCategoryFactory> */
