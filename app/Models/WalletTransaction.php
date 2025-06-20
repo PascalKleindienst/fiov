@@ -80,7 +80,7 @@ final class WalletTransaction extends Model
     public function isSpeding(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->amount < 0,
+            get: fn (): bool => $this->amount->getAmount() < 0,
         );
     }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Color;
+use App\Enums\Icon;
 use Database\Factories\WalletCategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,13 +43,6 @@ final class WalletCategory extends Model
     /** @use HasFactory<WalletCategoryFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'icon',
-        'color',
-        'user_id',
-    ];
-
     /**
      * @return HasMany<WalletTransaction, $this>
      */
@@ -62,5 +57,16 @@ final class WalletCategory extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function casts(): array
+    {
+        return [
+            'color' => Color::class,
+            'icon' => Icon::class,
+        ];
     }
 }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Color;
+use App\Enums\Currency;
+use App\Enums\Icon;
 use Database\Factories\WalletFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -76,5 +79,14 @@ final class Wallet extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(WalletTransaction::class);
+    }
+
+    public function casts()
+    {
+        return [
+            'color' => Color::class,
+            'icon' => Icon::class,
+            'currency' => Currency::class,
+        ];
     }
 }
