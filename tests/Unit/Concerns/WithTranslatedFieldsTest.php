@@ -23,6 +23,25 @@ final class TestComponent extends \Livewire\Component
     }
 }
 
+#[\App\Attributes\TranslatedFormFields('custom.')]
+final class CustomTestComponent extends \Livewire\Component
+{
+    use WithTranslatedFields;
+
+    #[Validate('required')]
+    public $foo;
+
+    public function save(): void
+    {
+        $this->validate();
+    }
+
+    public function render(): string
+    {
+        return '<div>SOME VIEW</div>';
+    }
+}
+
 it('returns validation attributes with default prefix', function (): void {
     $component = Livewire::test(TestComponent::class)
         ->call('save')
@@ -32,9 +51,6 @@ it('returns validation attributes with default prefix', function (): void {
 });
 
 it('returns validation attributes with custom_prefix', function (): void {
-    #[\App\Attributes\TranslatedFormFields('custom.')]
-    final class CustomTestComponent extends TestComponent {}
-
     $component = Livewire::test(CustomTestComponent::class)
         ->call('save')
         ->assertHasErrors('foo');
