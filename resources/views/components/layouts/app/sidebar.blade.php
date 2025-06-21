@@ -4,38 +4,25 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
+        <x-toast />
+
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
-
-            {{-- TODO: Add notifications --}}
-            <flux:modal.trigger name="edit-profile">
-                <flux:button icon="bell" square class="relative" variant="ghost">
-                    <flux:badge class="absolute -top-2 -right-2" variant="solid" color="green" size="sm">2</flux:badge>
-                </flux:button>
-            </flux:modal.trigger>
-            <flux:modal name="edit-profile" variant="flyout">
-                <div class="space-y-6">
-                    <flux:heading size="xl">Notifications</flux:heading>
-                    <div class="space-y-6 divide-y divide-zinc-200">
-                        @for ($i = 0; $i < 5; $i++)
-                            <div class="pb-6">
-                                <flux:heading>User profile</flux:heading>
-                                <flux:text class="mt-2">This information will be displayed publicly.</flux:text>
-                                <flux:text>3min ago</flux:text>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </flux:modal>
-
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="wallet" :href="route('wallets.index')" :current="request()->routeIs('wallets.*')" wire:navigate>
+                        {{ __('navigation.wallets') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="tags" :href="route('categories.index')" :current="request()->routeIs('categories.*')" wire:navigate>
+                        {{ __('navigation.categories') }}
                     </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
@@ -80,6 +67,19 @@
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item
+                            icon="bell"
+                            class="cursor-pointer"
+                            suffix="2"
+                            x-data
+                            x-on:click="
+                                $el.querySelector('button[disabled]') ||
+                                    $dispatch('modal-show', { name: 'edit-profile' })
+                            "
+                            data-flux-modal-trigger
+                        >
+                            Notifications
+                        </flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -98,6 +98,7 @@
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
+            {{-- TODO: partial as desktop/mobile seems mostly the same --}}
             <flux:spacer />
 
             <flux:dropdown position="top" align="end">
@@ -142,6 +143,22 @@
         </flux:header>
 
         {{ $slot }}
+
+        {{-- TODO: Add notifications --}}
+        <flux:modal name="edit-profile" variant="flyout" position="left">
+            <div class="space-y-6">
+                <flux:heading size="xl">Notifications</flux:heading>
+                <div class="space-y-6 divide-y divide-zinc-200">
+                    @for ($i = 0; $i < 5; $i++)
+                        <div class="pb-6">
+                            <flux:heading>User profile</flux:heading>
+                            <flux:text class="mt-2">This information will be displayed publicly.</flux:text>
+                            <flux:text>3min ago</flux:text>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+        </flux:modal>
 
         @fluxScripts
     </body>
