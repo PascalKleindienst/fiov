@@ -6,12 +6,13 @@ namespace App\Enums;
 
 enum Color: string
 {
-    case Blue = 'blue';
     case Green = 'green';
-    case Red = 'red';
+    case Lime = 'lime';
     case Yellow = 'yellow';
     case Orange = 'orange';
+    case Red = 'red';
     case Purple = 'purple';
+    case Blue = 'blue';
 
     public function css(): string
     {
@@ -22,6 +23,7 @@ enum Color: string
             self::Yellow => 'bg-yellow-200',
             self::Orange => 'bg-orange-200',
             self::Purple => 'bg-purple-200',
+            self::Lime => 'bg-lime-200',
         };
     }
 }

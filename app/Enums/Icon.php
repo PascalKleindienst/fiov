@@ -21,4 +21,15 @@ enum Icon: string
     case PiggyBank = 'piggy-bank';
     case Pizza = 'pizza';
     case Coffee = 'coffee';
+
+    case GitHub = 'github';
+    case Twitch = 'twitch';
+    case YouTube = 'youtube';
+    case Video = 'film';
+    case TV = 'tv-minimal-play';
+    case Phone = 'phone';
+    case Zap = 'zap';
+    case Mail = 'mail';
+    case A11y = 'accessibility';
+    case Camera = 'camera';
 }
