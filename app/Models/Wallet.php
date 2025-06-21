@@ -81,7 +81,10 @@ final class Wallet extends Model
         return $this->hasMany(WalletTransaction::class);
     }
 
-    public function casts()
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
         return [
             'color' => Color::class,
