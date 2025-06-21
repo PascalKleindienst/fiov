@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use App\Concerns\WithModel;
 
-beforeEach(function () {
-    $this->form = new class {
+beforeEach(function (): void {
+    $this->form = new class
+    {
         use WithModel;
 
         public array $data = [];
@@ -16,13 +17,11 @@ beforeEach(function () {
         }
     };
 
-
-    $this->model = new class extends \Illuminate\Database\Eloquent\Model {
-    };
+    $this->model = new class extends \Illuminate\Database\Eloquent\Model {};
     $this->model->foo = 'bar';
 });
 
-it('sets and fills the model', function () {
+it('sets and fills the model', function (): void {
     expect($this->form->model)->toBeNull();
     $this->form->setModel($this->model);
 
@@ -31,7 +30,7 @@ it('sets and fills the model', function () {
         ->and($this->form->data)->toBe(['foo' => 'bar']);
 });
 
-it('does nothing if the model is not an instance of Illuminate\Database\Eloquent\Model', function () {
+it('does nothing if the model is not an instance of Illuminate\Database\Eloquent\Model', function (): void {
     $this->form->setModel(null);
 
     expect($this->form->model)->toBeNull()

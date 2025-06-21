@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Concerns\WithBreadcrumbs;
 use App\Data\BreadcrumbItemData;
 
-it('sets shares the breadcrumbs with the view', function () {
-    $class = new class {
+it('sets shares the breadcrumbs with the view', function (): void {
+    $class = new class
+    {
         use WithBreadcrumbs;
 
         public function doSomething(): void
@@ -14,10 +17,11 @@ it('sets shares the breadcrumbs with the view', function () {
     };
 
     $class->doSomething();
+
     expect(View::shared('breadcrumbs'))->toEqual(
         [
             new BreadcrumbItemData('foo', '#foo'),
-            new BreadcrumbItemData('bar')
+            new BreadcrumbItemData('bar'),
         ]
     );
 });

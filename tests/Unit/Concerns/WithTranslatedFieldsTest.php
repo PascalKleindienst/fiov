@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-
 use App\Concerns\WithTranslatedFields;
 use Livewire\Attributes\Validate;
 
-class TestComponent extends \Livewire\Component {
+final class TestComponent extends \Livewire\Component
+{
     use WithTranslatedFields;
 
     #[Validate('required')]
     public $foo;
 
-    public function save()
+    public function save(): void
     {
         $this->validate();
     }
 
-    public function render()
+    public function render(): string
     {
         return '<div>SOME VIEW</div>';
     }
 }
 
-it('returns validation attributes with default prefix', function () {
-     $component = Livewire::test(TestComponent::class)
-         ->call('save')
-         ->assertHasErrors('foo');
+it('returns validation attributes with default prefix', function (): void {
+    $component = Livewire::test(TestComponent::class)
+        ->call('save')
+        ->assertHasErrors('foo');
 
-     expect($component->errors()->get('foo')[0])->toContain('Validation.foo');
+    expect($component->errors()->get('foo')[0])->toContain('Validation.foo');
 });
 
-it('returns validation attributes with custom_prefix', function () {
+it('returns validation attributes with custom_prefix', function (): void {
     #[\App\Attributes\TranslatedFormFields('custom.')]
-    class CustomTestComponent extends TestComponent {}
+    final class CustomTestComponent extends TestComponent {}
 
     $component = Livewire::test(CustomTestComponent::class)
         ->call('save')

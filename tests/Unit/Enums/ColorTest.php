@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\Color;
 
-it('returns the correct css color class', function (Color $color, $css) {
+it('returns the correct css color class', function (Color $color, $css): void {
     expect($color->css())->toBe($css);
 })->with([
     [Color::Blue, 'bg-sky-200'],
