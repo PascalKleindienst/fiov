@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-/**
- * @TODO
- */
 final readonly class WalletPolicy
 {
     use HandlesAuthorization;
@@ -18,33 +17,28 @@ final readonly class WalletPolicy
         return true;
     }
 
-    public function view(): bool
-    {
-        return true;
-    }
-
     public function create(): bool
     {
         return true;
     }
 
-    public function update(): bool
+    public function update(User $user, Wallet $wallet): bool
     {
-        return true;
+        return $wallet->user_id === $user->id;
     }
 
-    public function delete(): bool
+    public function delete(User $user, Wallet $wallet): bool
     {
-        return true;
+        return $wallet->user_id === $user->id;
     }
 
-    public function restore(): bool
+    public function restore(User $user, Wallet $wallet): bool
     {
-        return true;
+        return $wallet->user_id === $user->id;
     }
 
-    public function forceDelete(): bool
+    public function forceDelete(User $user, Wallet $wallet): bool
     {
-        return true;
+        return $wallet->user_id === $user->id;
     }
 }

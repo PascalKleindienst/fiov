@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Models\Wallet;
+use App\Models\WalletCategory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'))->name('home');
@@ -15,6 +17,19 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function (): void {
     Route::redirect('settings', 'settings/profile');
+
+    Route::name('wallets.')->prefix('wallets')->group(function (): void {
+        Route::get('/', \App\Livewire\Wallets\Index::class)->name('index')->can('viewAny', Wallet::class);
+        Route::get('/create', \App\Livewire\Wallets\Create::class)->name('create')->can('create', Wallet::class);
+        Route::get('/{wallet}/edit', \App\Livewire\Wallets\Edit::class)->name('edit')->can('update', 'wallet');
+    });
+
+    Route::name('categories.')->prefix('categories')->group(function (): void {
+        Route::get('/', \App\Livewire\Categories\Index::class)->name('index')->can('viewAny', WalletCategory::class);
+        Route::get('/create', \App\Livewire\Categories\Create::class)->name('create')->can('create', WalletCategory::class);
+        Route::get('/{walletCategory}/edit', \App\Livewire\Categories\Edit::class)->name('edit')
+            ->can('update', 'walletCategory');
+    });
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');

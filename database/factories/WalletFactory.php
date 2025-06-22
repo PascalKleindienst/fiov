@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Color;
+use App\Enums\Currency;
+use App\Enums\Icon;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,9 +24,9 @@ final class WalletFactory extends Factory
         return [
             'title' => $this->faker->word(),
             'description' => $this->faker->text(),
-            'color' => $this->faker->randomElement(['red', 'green', 'blue', 'yellow', 'orange', 'purple']),
-            'icon' => $this->faker->randomElement(['star', 'cog']),
-            'currency' => $this->faker->currencyCode(),
+            'color' => $this->faker->randomElement(Color::cases()),
+            'icon' => $this->faker->randomElement(Icon::cases()),
+            'currency' => $this->faker->randomElement(Currency::cases()),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
