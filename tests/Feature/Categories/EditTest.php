@@ -9,9 +9,21 @@ use App\Models\User;
 use App\Models\WalletCategory;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
+
 it('requires authentication to access the component', function (): void {
-    Livewire::test(Edit::class)
-        ->assertForbidden();
+    get(route('categories.edit', WalletCategory::factory()->create()))
+        ->assertRedirectToRoute('login');
+});
+
+it('can only edit a category if it belongs to the authenticated user', function (): void {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    get(route('categories.edit', WalletCategory::factory()->create()))->assertForbidden();
+    get(route('categories.edit', WalletCategory::factory()->for($user, 'user')->create()))
+        ->assertOk();
 });
 
 it('can mount with existing category for editing', function (): void {

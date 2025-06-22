@@ -6,11 +6,16 @@ use App\Livewire\Categories\Index;
 use App\Models\User;
 use App\Models\WalletCategory;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\get;
 
 it('requires authentication to access the component', function (): void {
-    Livewire::test(Index::class)
-        ->assertForbidden();
+    get(route('categories.index'))->assertRedirectToRoute('login');
+
+    $user = User::factory()->create();
+    actingAs($user);
+    get(route('categories.index'))->assertOk();
 });
 
 it('shows a paginated list of categories for the authenticated user', function (): void {

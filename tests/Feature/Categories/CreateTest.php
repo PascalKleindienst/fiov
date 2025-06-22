@@ -8,7 +8,17 @@ use App\Livewire\Categories\Create;
 use App\Models\User;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\get;
+
+it('requires authentication to access the component', function (): void {
+    get(route('categories.create'))->assertRedirectToRoute('login');
+
+    $user = User::factory()->create();
+    actingAs($user);
+    get(route('categories.create'))->assertOk();
+});
 
 it('renders the create view', function (): void {
     $user = User::factory()->create();
