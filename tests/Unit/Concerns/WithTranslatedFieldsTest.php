@@ -47,7 +47,7 @@ it('returns validation attributes with default prefix', function (): void {
         ->call('save')
         ->assertHasErrors('foo');
 
-    expect($component->errors()->get('foo')[0])->toContain('Validation.foo');
+    expect($component->errors()->get('foo')[0])->toContain(__('validation.required', ['attribute' => 'validation.foo']));
 });
 
 it('returns validation attributes with custom_prefix', function (): void {
@@ -55,5 +55,5 @@ it('returns validation attributes with custom_prefix', function (): void {
         ->call('save')
         ->assertHasErrors('foo');
 
-    expect($component->errors()->get('foo')[0])->toContain('Custom.foo');
+    expect($component->errors()->get('foo')[0])->toContain(__('validation.required', ['attribute' => 'custom.foo']));
 });
