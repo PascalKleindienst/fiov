@@ -20,10 +20,6 @@ final class Index extends Component
     use WithBreadcrumbs;
     use WithPagination;
 
-    public ?int $categoryId = null;
-
-    public bool $confirmed = false;
-
     public function deleteCategory(WalletCategory $category): void
     {
         $this->authorize('delete', $category);

@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'delete' => 'Delete',
+    'changes_have_been_saved' => 'Your changes have been saved',
+];

@@ -35,7 +35,7 @@ final class Edit extends Component
     {
         $this->form->submit();
 
-        Flux::toast(__('Your changes have been saved'), variant: 'success');
+        Flux::toast(__('general.changes_have_been_saved'), variant: 'success');
 
         $this->redirect(route('categories.index'), navigate: true);
     }
