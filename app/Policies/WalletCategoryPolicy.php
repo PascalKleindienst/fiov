@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Models\User;
+use App\Models\WalletCategory;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -18,9 +20,9 @@ final readonly class WalletCategoryPolicy
         return true;
     }
 
-    public function view(): bool
+    public function view(User $user, WalletCategory $walletCategory): bool
     {
-        return true;
+        return $walletCategory->user_id === $user->id;
     }
 
     public function create(): bool
@@ -28,23 +30,23 @@ final readonly class WalletCategoryPolicy
         return true;
     }
 
-    public function update(): bool
+    public function update(User $user, WalletCategory $walletCategory): bool
     {
-        return true;
+        return $walletCategory->user_id === $user->id;
     }
 
-    public function delete(): bool
+    public function delete(User $user, WalletCategory $walletCategory): bool
     {
-        return true;
+        return $walletCategory->user_id === $user->id;
     }
 
-    public function restore(): bool
+    public function restore(User $user, WalletCategory $walletCategory): bool
     {
-        return true;
+        return $walletCategory->user_id === $user->id;
     }
 
-    public function forceDelete(): bool
+    public function forceDelete(User $user, WalletCategory $walletCategory): bool
     {
-        return true;
+        return $walletCategory->user_id === $user->id;
     }
 }
