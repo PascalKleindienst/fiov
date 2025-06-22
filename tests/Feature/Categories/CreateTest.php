@@ -46,31 +46,15 @@ it('can create a new wallet category with valid data', function (): void {
     ]);
 });
 
-it('validates required title on create', function (): void {
+it('validates fields on create', function ($property, $value, $rule): void {
     $user = User::factory()->create();
 
     Livewire::actingAs($user)->test(Create::class)
-        ->set('form.title', '')
+        ->set($property, $value)
         ->call('save')
-        ->assertHasErrors(['form.title' => 'required']);
-});
-
-it('validates color as a valid enum', function (): void {
-    $user = User::factory()->create();
-
-    Livewire::actingAs($user)->test(Create::class)
-        ->set('form.title', 'Test')
-        ->set('form.color', 'invalid')
-        ->call('save')
-        ->assertHasErrors(['form.color' => \Illuminate\Validation\Rules\Enum::class]);
-});
-
-it('validates icon as a valid enum', function (): void {
-    $user = User::factory()->create();
-
-    Livewire::actingAs($user)->test(Create::class)
-        ->set('form.title', 'Test')
-        ->set('form.icon', 'wrong-icon')
-        ->call('save')
-        ->assertHasErrors(['form.icon' => \Illuminate\Validation\Rules\Enum::class]);
-});
+        ->assertHasErrors([$property => $rule]);
+})->with([
+    ['form.title', '', 'required'],
+    ['form.color', 'invalid', \Illuminate\Validation\Rules\Enum::class],
+    ['form.icon', 'invalid', \Illuminate\Validation\Rules\Enum::class],
+]);

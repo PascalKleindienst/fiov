@@ -57,31 +57,16 @@ it('can update an existing category', function (): void {
         ->and($category->icon)->toEqual(Icon::Wallet);
 });
 
-it('validates required title', function (): void {
+it('validates fields on update', function ($property, $value, $rule): void {
     $user = User::factory()->create();
+    $category = WalletCategory::factory()->for($user, 'user')->create();
 
-    Livewire::actingAs($user)->test(Edit::class)
-        ->set('form.title', '')
+    Livewire::actingAs($user)->test(Edit::class, ['walletCategory' => $category])
+        ->set($property, $value)
         ->call('save')
-        ->assertHasErrors(['form.title' => 'required']);
-});
-
-it('validates color as a valid enum value', function (): void {
-    $user = User::factory()->create();
-
-    Livewire::actingAs($user)->test(Edit::class)
-        ->set('form.title', 'Test')
-        ->set('form.color', 'invalid-color')
-        ->call('save')
-        ->assertHasErrors(['form.color' => \Illuminate\Validation\Rules\Enum::class]);
-});
-
-it('validates icon as a valid enum value', function (): void {
-    $user = User::factory()->create();
-
-    Livewire::actingAs($user)->test(Edit::class)
-        ->set('form.title', 'Test')
-        ->set('form.icon', 'not-an-icon')
-        ->call('save')
-        ->assertHasErrors(['form.icon' => \Illuminate\Validation\Rules\Enum::class]);
-});
+        ->assertHasErrors([$property => $rule]);
+})->with([
+    ['form.title', '', 'required'],
+    ['form.color', 'invalid', \Illuminate\Validation\Rules\Enum::class],
+    ['form.icon', 'invalid', \Illuminate\Validation\Rules\Enum::class],
+]);
