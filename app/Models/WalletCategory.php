@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Enums\Color;
 use App\Enums\Icon;
+use App\Models\Scopes\OwnerScope;
 use Database\Factories\WalletCategoryFactory;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $title
- * @property string|null $icon
- * @property string|null $color
+ * @property Icon|null $icon
+ * @property Color|null $color
  * @property int $user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
@@ -38,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @mixin \Eloquent
  */
+#[ScopedBy(OwnerScope::class)]
 final class WalletCategory extends Model
 {
     /** @use HasFactory<WalletCategoryFactory> */

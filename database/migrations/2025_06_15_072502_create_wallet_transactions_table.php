@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('wallet_transactions', function (Blueprint $table): void {
             $table->id();
+            $table->ulid('transaction_id')->unique();
             $table->string('title');
             $table->string('icon')->nullable();
             $table->integer('amount');
