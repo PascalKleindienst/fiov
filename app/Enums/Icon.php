@@ -15,6 +15,10 @@ enum Icon: string
     case Star = 'star';
     case Music = 'music';
     case Shopping = 'shopping-basket';
+
+    case Car = 'car';
+    case Bus = 'bus';
+    case Train = 'train-front';
     case Travel = 'plane';
     case Money = 'banknote';
     case Bank = 'landmark';
@@ -22,6 +26,8 @@ enum Icon: string
     case Pizza = 'pizza';
     case Coffee = 'coffee';
 
+    case Computer = 'computer';
+    case Laptop = 'laptop';
     case GitHub = 'github';
     case Twitch = 'twitch';
     case YouTube = 'youtube';
@@ -32,4 +38,5 @@ enum Icon: string
     case Mail = 'mail';
     case A11y = 'accessibility';
     case Camera = 'camera';
+    case Gamepad = 'gamepad-2';
 }
