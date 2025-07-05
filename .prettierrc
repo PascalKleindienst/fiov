@@ -21,7 +21,8 @@
         {
             "files": "**/*.blade.php",
             "options": {
-                "parser": "blade"
+                "parser": "blade",
+                "singleQuote": true
             }
         },
         {
