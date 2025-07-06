@@ -92,6 +92,10 @@ arch('models')
         'App\Notifications',
     ]);
 
+arch('queries')
+    ->expect('App\Queries')
+    ->toImplement(\App\Contracts\FilterInterface::class);
+
 arch('actions')
     ->expect('App\Actions')
     ->toHaveMethod('handle')
