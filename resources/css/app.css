@@ -34,6 +34,25 @@
         --color-accent: var(--color-sky-600);
         --color-accent-content: var(--color-sky-400);
         --color-accent-foreground: var(--color-white);
+
+        /* This targets the dropdown menu that appears when you click the toolbar options */
+        .apexcharts-menu {
+            background: var(--color-zinc-800) !important;      /* Dark background */
+            border: 1px solid var(--color-zinc-600) !important;   /* Darker border */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
+        }
+
+        /* Style each menu item */
+        .apexcharts-menu-item {
+            color: var(--color-zinc-300) !important;              /* Light text color */
+        }
+
+        /* Menu item hover state */
+        .apexcharts-menu-item:hover {
+            background: var(--color-zinc-700) !important;         /* Slightly lighter on hover */
+            color: #fff !important;              /* White text on hover */
+            cursor: pointer;
+        }
     }
 }
 

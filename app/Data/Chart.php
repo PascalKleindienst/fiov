@@ -1,0 +1,142 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Data;
+
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Collection;
+use JsonException;
+use JsonSerializable;
+
+/**
+ * @implements Arrayable<string, mixed>
+ */
+final class Chart implements Arrayable, Jsonable, JsonSerializable
+{
+    /**
+     * @var Collection<string, array{name: string, data: array{float|int}|array<int, array{x: string|float, y: float}>}>
+     */
+    private Collection $series;
+
+    /**
+     * @var string[]
+     */
+    private array $colors = [];
+
+    /**
+     * @param  array<int, array{x: string|float, y: float, color?: string}>  $data
+     */
+    public function __construct(
+        public readonly string $name,
+        public readonly string $currency,
+        array $data = [],
+        public readonly float|int $previousTotal = 0,
+        /** @var array<string, mixed> $options */
+        public array $options = []
+    ) {
+        $this->series = new Collection();
+
+        foreach ($data as $dataPoint) {
+            $this->addDataPoint($dataPoint['x'], $dataPoint['y']);
+
+            if (isset($dataPoint['color'])) {
+                $this->addColor($dataPoint['color']);
+            }
+        }
+    }
+
+    public function addDataPoint(string|float $x, float $y): self
+    {
+        $this->addSeries($this->name, [
+            [
+                'x' => $x,
+                'y' => $y,
+            ],
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @param  array{float|int}|array<int, array{x: string|float, y: float}>  $data
+     */
+    public function addSeries(string $name, array $data): self
+    {
+        if (! $this->series->has($name)) {
+            $this->series->put($name, [
+                'name' => $name, 'data' => $data,
+            ]);
+
+            return $this;
+        }
+
+        $this->series->put($name, [
+            'name' => $name,
+            'data' => [...$this->series[$name]['data'] ?? [], ...$data],
+        ]);
+
+        return $this;
+    }
+
+    public function addColor(string $color): self
+    {
+        $this->colors[] = $color;
+
+        return $this;
+    }
+
+    public function addOption(string $key, mixed $value): self
+    {
+        $this->options[$key] = $value;
+
+        return $this;
+    }
+
+    public function growth(): float
+    {
+        if ($this->previousTotal === 0) {
+            return 100;
+        }
+
+        return (($this->total() - $this->previousTotal) / $this->previousTotal) * 100;
+    }
+
+    public function total(): float|int
+    {
+        return $this->series->sum(function (array $series): float|int {
+            $sum = array_sum(array_column($series['data'], 'y')); // sum data with [x, y] coords
+
+            // @phpstan-ignore-next-line
+            return $sum !== 0 ? $sum : array_sum($series['data']); // sum data with values only
+        });
+    }
+
+    /**
+     * @param  int  $options
+     *
+     * @throws JsonException
+     */
+    public function toJson($options = 0): string // @pest-ignore-type
+    {
+        return json_encode($this->toArray(), $options | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'series' => $this->series->values()->toArray(),
+            'colors' => $this->colors,
+            ...$this->options,
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+}

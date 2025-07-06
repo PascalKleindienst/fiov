@@ -26,4 +26,17 @@ enum Color: string
             self::Lime => 'bg-lime-200 dark:bg-lime-600',
         };
     }
+
+    public function rgb(): string
+    {
+        return match ($this) {
+            self::Blue => '#008FFB',
+            self::Green => '#00E396',
+            self::Red => '#FF4560',
+            self::Yellow => '#f9ce1d',
+            self::Orange => '#FF9800',
+            self::Purple => '#775DD0',
+            self::Lime => '#4ecdc4',
+        };
+    }
 }
