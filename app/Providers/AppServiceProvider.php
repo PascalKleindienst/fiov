@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +23,8 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        Carbon::setLocale(config('app.locale'));
+
         if ($this->app->environment('local')) {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
@@ -32,6 +36,8 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('viewPulse', static fn () => app()->isLocal());
+
         $this->configureCommands();
         $this->configureModels();
         $this->configureDates();
