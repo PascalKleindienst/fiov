@@ -11,7 +11,11 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
-        @foreach ($wallets as $wallet)
+        @forelse ($wallets as $wallet)
+            @php
+                /** @var \App\Http\Resources\WalletResource $wallet */
+            @endphp
+
             <div class="flex items-center gap-4 rounded border border-zinc-200 p-4 dark:border-zinc-600">
                 {{-- <flux:icon :name="$wallet->icon" class="size-12 rounded bg-yellow-200 p-2" /> --}}
                 <flux:icon
@@ -66,7 +70,13 @@
                     @endcan
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="flex items-center justify-center gap-4 rounded border border-dashed border-zinc-200 p-4 dark:border-zinc-600">
+                <flux:heading size="md" class="text-zinc-600 dark:text-zinc-400">
+                    {{ __('wallets.empty') }}
+                </flux:heading>
+            </div>
+        @endforelse
     </div>
 
     {{ $wallets->links() }}

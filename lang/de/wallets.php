@@ -5,6 +5,7 @@ return [
     'create' => 'Konto erstellen',
     'edit' => 'Konto ":name" bearbeiten',
     'delete' => 'Konto ":name" löschen',
+    'empty' => 'Keine Konten',
 
     'fields' => [
         'title' => 'Titel',

@@ -4,10 +4,10 @@
     */
 @endphp
 
-<div class="space-y-4">
+<div class="space-y-4 p-4">
     <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
-            <flux:heading size="lg" level="3">{{ $this->chart->name }} : {{ money($this->chart->total(), $this->chart->currency) }}</flux:heading>
+            <flux:heading size="lg" level="3">{{ $this->chart->name }}: {{ money($this->chart->total(), $this->chart->currency) }}</flux:heading>
             <div
                 @class([
                     'flex items-center gap-2',

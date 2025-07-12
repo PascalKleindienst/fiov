@@ -5,6 +5,7 @@ return [
     'create' => 'Create account',
     'edit' => 'Edit account ":name"',
     'delete' => 'Delete account ":name"',
+    'empty' => 'No accounts',
 
     'fields' => [
         'title' => 'Title',
