@@ -43,7 +43,7 @@ export default defineComponent((options: ApexOptions) => ({
         const defaultOptions: ApexOptions = {
             chart: {
                 type: 'bar',
-                height: 350,
+                height: '100%',
                 foreColor: isDarkMode() ? '#ccc' : '#373d3f',
                 toolbar: {
                     show: true

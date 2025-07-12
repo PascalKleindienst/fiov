@@ -52,6 +52,7 @@ final class Spendings extends ChartComponent
         return [
             'chart' => [
                 'stacked' => true,
+                'height' => 700,
             ],
             'plotOptions' => [
                 'bar' => [
