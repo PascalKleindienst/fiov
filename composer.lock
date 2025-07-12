@@ -7677,16 +7677,16 @@
         },
         {
             "name": "laravel-lang/lang",
-            "version": "15.22.3",
+            "version": "15.22.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Lang/lang.git",
-                "reference": "602763d5a8c85cd1abcdc160e00da436cd000c97"
+                "reference": "48526c88e90d2bb592bcbb47de96ca5e486c41cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/602763d5a8c85cd1abcdc160e00da436cd000c97",
-                "reference": "602763d5a8c85cd1abcdc160e00da436cd000c97",
+                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/48526c88e90d2bb592bcbb47de96ca5e486c41cc",
+                "reference": "48526c88e90d2bb592bcbb47de96ca5e486c41cc",
                 "shasum": ""
             },
             "require": {
@@ -7736,7 +7736,7 @@
                 "issues": "https://github.com/Laravel-Lang/lang/issues",
                 "source": "https://github.com/Laravel-Lang/lang"
             },
-            "time": "2025-06-27T08:03:42+00:00"
+            "time": "2025-07-03T13:22:31+00:00"
         },
         {
             "name": "laravel-lang/locale-list",
@@ -8254,16 +8254,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.22.1",
+            "version": "v1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7"
+                "reference": "9ab851dba4faa51a3c3223dd3d07044129021024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/941d1927c5ca420c22710e98420287169c7bcaf7",
-                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/9ab851dba4faa51a3c3223dd3d07044129021024",
+                "reference": "9ab851dba4faa51a3c3223dd3d07044129021024",
                 "shasum": ""
             },
             "require": {
@@ -8274,10 +8274,10 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.75.0",
-                "illuminate/view": "^11.44.7",
-                "larastan/larastan": "^3.4.0",
-                "laravel-zero/framework": "^11.36.1",
+                "friendsofphp/php-cs-fixer": "^3.76.0",
+                "illuminate/view": "^11.45.1",
+                "larastan/larastan": "^3.5.0",
+                "laravel-zero/framework": "^11.45.0",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.3.1",
                 "pestphp/pest": "^2.36.0"
@@ -8287,6 +8287,9 @@
             ],
             "type": "project",
             "autoload": {
+                "files": [
+                    "overrides/Runner/Parallel/ProcessFactory.php"
+                ],
                 "psr-4": {
                     "App\\": "app/",
                     "Database\\Seeders\\": "database/seeders/",
@@ -8316,7 +8319,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-05-08T08:38:12+00:00"
+            "time": "2025-07-03T10:37:47+00:00"
         },
         {
             "name": "laravel/sail",
@@ -9092,22 +9095,22 @@
         },
         {
             "name": "pestphp/pest-plugin-type-coverage",
-            "version": "v3.5.1",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-type-coverage.git",
-                "reference": "78d65c9c4f0a77e0aab5c0d70991bda20e7821d9"
+                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/78d65c9c4f0a77e0aab5c0d70991bda20e7821d9",
-                "reference": "78d65c9c4f0a77e0aab5c0d70991bda20e7821d9",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/dff0a51ad90a4cd5795cccd2f8805806a4658210",
+                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210",
                 "shasum": ""
             },
             "require": {
                 "pestphp/pest-plugin": "^3.0.0",
                 "php": "^8.2",
-                "phpstan/phpstan": "^1.12.21|^2.1.12",
+                "phpstan/phpstan": "^1.12.21|^2.1.17",
                 "tomasvotruba/type-coverage": "^1.0.0|^2.0.2"
             },
             "require-dev": {
@@ -9144,7 +9147,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.5.1"
+                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.6.0"
             },
             "funding": [
                 {
@@ -9156,7 +9159,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-20T21:49:49+00:00"
+            "time": "2025-07-05T17:57:07+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -11347,12 +11350,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
