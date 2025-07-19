@@ -18,4 +18,14 @@ enum RecurringFrequency: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::DAILY => __('recurring_transactions.frequencies.daily'),
+            self::WEEKLY => __('recurring_transactions.frequencies.weekly'),
+            self::MONTHLY => __('recurring_transactions.frequencies.monthly'),
+            self::YEARLY => __('recurring_transactions.frequencies.yearly'),
+        };
+    }
 }

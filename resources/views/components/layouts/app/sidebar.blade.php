@@ -24,6 +24,14 @@
                     <flux:navlist.item icon="tags" :href="route('categories.index')" :current="request()->routeIs('categories.*')" wire:navigate>
                         {{ __('navigation.categories') }}
                     </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="calendar-clock"
+                        :href="route('recurring-transactions.index')"
+                        :current="request()->routeIs('recurring-transactions.*')"
+                        wire:navigate
+                    >
+                        {{ __('navigation.recurring_transactions') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -41,7 +49,11 @@
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden p-4 lg:block" position="bottom" align="start">
-                <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()" icon:trailing="chevrons-up-down" />
+                <flux:profile :name="auth()->user()->name" icon:trailing="chevrons-up-down">
+                    <x-slot name="avatar">
+                        <flux:avatar :initials="auth()->user()->initials()" badge="2" badge:position="top right" />
+                    </x-slot>
+                </flux:profile>
 
                 <flux:menu class="w-[220px]">
                     <flux:menu.radio.group>

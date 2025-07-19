@@ -31,6 +31,11 @@ Route::middleware(['auth'])->group(function (): void {
             ->can('update', 'walletCategory');
     });
 
+    Route::name('recurring-transactions.')->prefix('recurring-transactions')->group(function (): void {
+        Route::get('/', \App\Livewire\RecurringTransactions\Index::class)
+            ->name('index');
+    });
+
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');

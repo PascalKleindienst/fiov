@@ -7,4 +7,6 @@ return [
     'cancel' => 'Cancel',
     'delete' => 'Delete',
     'changes_have_been_saved' => 'Your changes have been saved',
+    'toggle_status' => 'Toggle Status',
+    'until_date' => 'Until :date',
 ];

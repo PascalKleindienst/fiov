@@ -39,4 +39,12 @@ enum Icon: string
     case A11y = 'accessibility';
     case Camera = 'camera';
     case Gamepad = 'gamepad-2';
+
+    /**
+     * @return string[]
+     */
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

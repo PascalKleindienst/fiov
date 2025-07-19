@@ -5,5 +5,6 @@ return [
     'wallets' => 'Accounts',
     'categories' => 'Categories',
     'transactions' => 'Transactions',
+    'recurring_transactions' => 'Recurring Transactions',
     'settings' => 'Settings',
 ];
