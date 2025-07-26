@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('wallet_transactions', function (Blueprint $table): void {
             $table->id();
             $table->ulid('transaction_id')->unique();
-            $table->string('title');
+            $table->text('title'); // encrypted
             $table->string('icon')->nullable();
-            $table->integer('amount');
+            $table->text('amount'); // encrypted
             $table->string('currency')->nullable();
             $table->boolean('is_investment');
             $table->foreignIdFor(Wallet::class)->constrained('wallets')->onDelete('cascade');

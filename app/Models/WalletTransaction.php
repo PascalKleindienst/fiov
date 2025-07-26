@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Cknow\Money\Casts\MoneyDecimalCast;
+use App\Casts\EncryptedMoneyCast;
+use App\Models\Concerns\Encryptable;
 use Database\Factories\WalletTransactionFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,6 +49,8 @@ use Illuminate\Support\Str;
  */
 final class WalletTransaction extends Model
 {
+    use Encryptable;
+
     /** @use HasFactory<WalletTransactionFactory> */
     use HasFactory;
 
@@ -104,7 +107,8 @@ final class WalletTransaction extends Model
     {
         return [
             'is_investment' => 'boolean',
-            'amount' => MoneyDecimalCast::class.':currency',
+            'title' => 'encrypted',
+            'amount' => EncryptedMoneyCast::class.':currency',
         ];
     }
 }

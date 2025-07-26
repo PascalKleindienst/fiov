@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\Color;
 use App\Enums\Icon;
+use App\Models\Concerns\Encryptable;
 use App\Models\Scopes\OwnerScope;
 use Database\Factories\WalletCategoryFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
@@ -43,6 +44,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ScopedBy(OwnerScope::class)]
 final class WalletCategory extends Model
 {
+    use Encryptable;
+
     /** @use HasFactory<WalletCategoryFactory> */
     use HasFactory;
 
@@ -70,6 +73,7 @@ final class WalletCategory extends Model
         return [
             'color' => Color::class,
             'icon' => Icon::class,
+            'title' => 'encrypted',
         ];
     }
 }

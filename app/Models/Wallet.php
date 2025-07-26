@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\Color;
 use App\Enums\Currency;
 use App\Enums\Icon;
+use App\Models\Concerns\Encryptable;
 use App\Models\Scopes\OwnerScope;
 use Database\Factories\WalletFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
@@ -54,6 +55,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ScopedBy(OwnerScope::class)]
 final class Wallet extends Model
 {
+    use Encryptable;
+
     /** @use HasFactory<WalletFactory> */
     use HasFactory;
 
@@ -93,6 +96,8 @@ final class Wallet extends Model
             'color' => Color::class,
             'icon' => Icon::class,
             'currency' => Currency::class,
+            'title' => 'encrypted',
+            'description' => 'encrypted',
         ];
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('wallet_categories', function (Blueprint $table): void {
             $table->id();
-            $table->string('title');
+            $table->text('title');  // encrypted
             $table->string('icon')->nullable();
             $table->string('color')->nullable();
             $table->foreignIdFor(User::class)->constrained('users')->onDelete('cascade');

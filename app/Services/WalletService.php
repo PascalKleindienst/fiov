@@ -12,10 +12,10 @@ final class WalletService
     public function current(): Wallet
     {
         if (! Session::has('wallet') || ! Session::get('wallet') instanceof Wallet) {
-            Session::put('wallet', Wallet::query()->firstOrFail());
+            Session::put('wallet', Wallet::query()->firstOrFail()->id);
         }
 
-        return Session::get('wallet');
+        return Wallet::findOrFail((int) Session::get('wallet'));
     }
 
     /**

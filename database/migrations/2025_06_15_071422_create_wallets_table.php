@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table): void {
             $table->id();
-            $table->string('title');
-            $table->string('description');
+            $table->text('title');  // encrypted
+            $table->text('description');  // encrypted
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->string('currency');

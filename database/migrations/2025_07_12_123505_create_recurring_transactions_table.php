@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('recurring_transactions', static function (Blueprint $table): void {
             $table->id();
-            $table->string('title');
+            $table->text('title');  // encrypted
             $table->string('icon')->nullable();
-            $table->integer('amount');
+            $table->text('amount'); // encrypted
             $table->string('currency');
             $table->boolean('is_investment')->default(false);
             $table->string('frequency');

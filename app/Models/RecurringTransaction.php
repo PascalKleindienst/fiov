@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Casts\EncryptedMoneyCast;
 use App\Enums\Icon;
 use App\Enums\RecurringFrequency;
+use App\Models\Concerns\Encryptable;
 use App\Models\Scopes\OwnerScope;
-use Cknow\Money\Casts\MoneyDecimalCast;
 use Database\Factories\RecurringTransactionFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,6 +62,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[ScopedBy(OwnerScope::class)]
 final class RecurringTransaction extends Model
 {
+    use Encryptable;
+
     /** @use HasFactory<RecurringTransactionFactory> */
     use HasFactory;
 
@@ -114,7 +117,8 @@ final class RecurringTransaction extends Model
             'last_processed_at' => 'datetime',
             'icon' => Icon::class,
             'frequency' => RecurringFrequency::class,
-            'amount' => MoneyDecimalCast::class.':currency',
+            'title' => 'encrypted',
+            'amount' => EncryptedMoneyCast::class.':currency',
         ];
     }
 }
