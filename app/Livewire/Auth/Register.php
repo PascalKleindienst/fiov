@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Auth;
 
+use App\Facades\CryptoService;
 use App\Models\User;
 use App\Notifications\WelcomeNotification;
 use Illuminate\Auth\Events\Registered;
@@ -35,6 +36,13 @@ final class Register extends Component
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $password = $validated['password'];
+        $salt = CryptoService::generateSalt();
+        $dek = CryptoService::generateDEK();
+        $encryptedDEK = CryptoService::encryptDEK($dek, CryptoService::deriveKey($password, $salt));
+
+        $validated['encryption_salt'] = $salt;
+        $validated['encrypted_dek'] = $encryptedDEK;
         $validated['password'] = Hash::make($validated['password']);
 
         event(new Registered(($user = User::create($validated))));
@@ -42,6 +50,7 @@ final class Register extends Component
         $user->notify(new WelcomeNotification());
 
         Auth::login($user);
+        session([\App\Services\CryptoService::DEK_SESSION_KEY => $dek]); // Store for later use in session (optional)
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }

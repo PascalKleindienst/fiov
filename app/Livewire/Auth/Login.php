@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire\Auth;
 
+use App\Facades\CryptoService;
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -36,6 +38,18 @@ final class Login extends Component
 
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+        $dek = CryptoService::decryptDEK($this->password, $user);
+
+        if (! $dek) {
+            Auth::logout();
 
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
