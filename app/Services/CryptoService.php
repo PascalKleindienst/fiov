@@ -15,11 +15,11 @@ use SensitiveParameter;
  * - DEK (Data Encryption Key)    Randomly generated per-user key used to encrypt all data
  * - KEK (Key Encryption Key)    Derived from user's password, used to encrypt the DEK
  */
-final class CryptoService
+final readonly class CryptoService
 {
     public const DEK_SESSION_KEY = 'data_encryption_key';
 
-    private readonly string $cipher;
+    private string $cipher;
 
     public function __construct()
     {
@@ -57,7 +57,7 @@ final class CryptoService
             return new Encrypter(base64_decode($dek), $this->cipher);
         }
 
-        $dek = base64_decode(Session::get(self::DEK_SESSION_KEY, $this->generateDEK()));
+        $dek = base64_decode((string) Session::get(self::DEK_SESSION_KEY, $this->generateDEK()));
 
         return new Encrypter($dek, $this->cipher);
     }
