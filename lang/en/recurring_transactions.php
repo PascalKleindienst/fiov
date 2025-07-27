@@ -6,6 +6,7 @@ return [
     'create' => 'Create recurring transaction',
     'edit' => 'Edit recurring transaction ":name"',
     'delete' => 'Delete recurring transaction ":name"',
+    'deleted' => 'Recurring transaction ":name" deleted',
     'empty' => 'No recurring transactions',
 
     'frequencies' => [

@@ -33,6 +33,11 @@ enum Currency: string
     case UAH = 'UAH';
     case MKD = 'MKD';
 
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
+
     public function symbol(): string
     {
         return match ($this) {

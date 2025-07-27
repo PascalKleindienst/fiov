@@ -5,6 +5,8 @@ return [
     'create' => 'Kategorie erstellen',
     'edit' => 'Kategorie ":name" bearbeiten',
     'delete' => 'Kategorie ":name" löschen',
+    'deleted' => 'Kategorie ":name" gelöscht',
+    'empty' => 'Keine Kategorien',
 
     'fields' => [
         'title' => 'Titel',

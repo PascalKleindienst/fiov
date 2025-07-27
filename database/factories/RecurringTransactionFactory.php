@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Currency;
 use App\Enums\Icon;
 use App\Enums\RecurringFrequency;
 use App\Models\RecurringTransaction;
@@ -26,7 +27,7 @@ final class RecurringTransactionFactory extends Factory
             'title' => $this->faker->word(),
             'icon' => $this->faker->randomElement(Icon::values()),
             'amount' => $this->faker->randomNumber(4),
-            'currency' => $this->faker->currencyCode(),
+            'currency' => Currency::EUR,
             'is_investment' => $this->faker->boolean(),
             'frequency' => $this->faker->randomElement(RecurringFrequency::values()),
             'start_date' => Carbon::now(),

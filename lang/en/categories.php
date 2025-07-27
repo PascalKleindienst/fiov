@@ -5,6 +5,8 @@ return [
     'create' => 'Create category',
     'edit' => 'Edit category ":name"',
     'delete' => 'Delete category ":name"',
+    'deleted' => 'Category ":name" deleted',
+    'empty' => 'No categories',
 
     'fields' => [
         'title' => 'Title',

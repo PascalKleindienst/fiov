@@ -6,6 +6,7 @@ return [
     'create' => 'Geplante Transaktion erstellen',
     'edit' => 'Geplante Transaktion ":name" bearbeiten',
     'delete' => 'Geplante Transaktion ":name" löschen',
+    'deleted' => 'Geplante Transaktion ":name" gelöscht',
     'empty' => 'Keine geplanten Transaktionen',
 
     'frequencies' => [
