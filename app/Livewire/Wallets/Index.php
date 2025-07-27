@@ -6,7 +6,6 @@ namespace App\Livewire\Wallets;
 
 use App\Concerns\WithBreadcrumbs;
 use App\Data\BreadcrumbItemData;
-use App\Http\Resources\WalletCollection;
 use App\Models\Wallet;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -32,7 +31,7 @@ final class Index extends Component
         $this->withBreadcrumbs(new BreadcrumbItemData(__('wallets.index')));
 
         return view('livewire.wallets.index', [
-            'wallets' => WalletCollection::make(Auth::user()?->wallets()->paginate(12)),
+            'wallets' => Auth::user()?->wallets()->paginate(12),
         ]);
     }
 }

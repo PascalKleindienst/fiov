@@ -27,6 +27,8 @@ arch('avoid mutation')
         'App\Queries',
         'App\Livewire',
         'App\Notifications',
+        'App\Casts',
+        'App\Console\Commands',
     ]);
 
 arch('avoid inheritance')

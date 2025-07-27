@@ -18,12 +18,16 @@ it('requires authentication to access the component', function (): void {
 });
 
 it('can only edit a wallet if it belongs to the authenticated user', function (): void {
+    $otherUser = User::factory()->create();
+    actingAs($otherUser);
+    $notOwned = Wallet::factory()->for($otherUser, 'user')->create();
+
     $user = User::factory()->create();
     actingAs($user);
+    $own = Wallet::factory()->for($user, 'user')->create();
 
-    get(route('wallets.edit', Wallet::factory()->create()))->assertForbidden();
-    get(route('wallets.edit', Wallet::factory()->for($user, 'user')->create()))
-        ->assertOk();
+    get(route('wallets.edit', $notOwned))->assertNotFound();
+    get(route('wallets.edit', $own))->assertOk();
 });
 
 it('can mount with existing wallet for editing', function (): void {

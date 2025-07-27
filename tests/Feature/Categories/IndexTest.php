@@ -24,7 +24,7 @@ it('shows a paginated list of categories for the authenticated user', function (
 
     Livewire::actingAs($user)->test(Index::class)
         ->assertViewIs('livewire.categories.index')
-        ->assertSee(WalletCategory::first()->title)
+        ->assertSee(WalletCategory::orderBy('title')->first()?->title)
         ->assertOk();
 });
 
@@ -43,13 +43,12 @@ it('can delete a category if authorized', function (): void {
 });
 
 it('cannot delete a category if not authorized', function (): void {
-    $user = User::factory()->create();
-    $otherUser = User::factory()->create();
-    $category = WalletCategory::factory()->for($otherUser, 'user')->create();
+    actingAs(User::factory()->create());
+    $category = WalletCategory::factory()->create();
 
-    Livewire::actingAs($user)->test(Index::class)
+    Livewire::actingAs($user = User::factory()->create())->test(Index::class)
         ->call('deleteCategory', $category)
         ->assertForbidden();
 
-    expect(WalletCategory::find($category->id))->not()->toBeNull();
+    expect(WalletCategory::withoutGlobalScope(\App\Models\Scopes\OwnerScope::class)->find($category->id))->not()->toBeNull();
 });

@@ -7,7 +7,7 @@ namespace App\Policies;
 use App\Models\RecurringTransaction;
 use App\Models\User;
 
-final class RecurringTransactionPolicy
+final readonly class RecurringTransactionPolicy
 {
     public function viewAny(): bool
     {

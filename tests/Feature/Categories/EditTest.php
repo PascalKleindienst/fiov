@@ -18,12 +18,16 @@ it('requires authentication to access the component', function (): void {
 });
 
 it('can only edit a category if it belongs to the authenticated user', function (): void {
+    $otherUser = User::factory()->create();
+    actingAs($otherUser);
+    $notOwnedCategory = WalletCategory::factory()->for($otherUser, 'user')->create();
+
     $user = User::factory()->create();
     actingAs($user);
+    $ownCategory = WalletCategory::factory()->for($user, 'user')->create();
 
-    get(route('categories.edit', WalletCategory::factory()->create()))->assertForbidden();
-    get(route('categories.edit', WalletCategory::factory()->for($user, 'user')->create()))
-        ->assertOk();
+    get(route('categories.edit', $notOwnedCategory))->assertNotFound();
+    get(route('categories.edit', $ownCategory))->assertOk();
 });
 
 it('can mount with existing category for editing', function (): void {

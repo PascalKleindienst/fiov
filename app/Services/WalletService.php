@@ -7,7 +7,7 @@ namespace App\Services;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Session;
 
-final class WalletService
+final readonly class WalletService
 {
     public function current(): Wallet
     {

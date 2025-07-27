@@ -9,7 +9,6 @@ use App\Models\User;
 use Livewire\Livewire;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 
 it('requires authentication to access the component', function (): void {
@@ -40,12 +39,11 @@ it('can create a new wallet category with valid data', function (): void {
         ->assertHasNoErrors()
         ->assertRedirect(route('wallets.index'));
 
-    assertDatabaseHas('wallets', [
-        'title' => 'Sparen',
-        'color' => Color::Red->value,
-        'icon' => Icon::PiggyBank->value,
-        'user_id' => $user->id,
-    ]);
+    $wallet = $user->wallets()->first();
+    expect($wallet->title)->toBe('Sparen')
+        ->and($wallet->description)->toBe('Some Description for you')
+        ->and($wallet->color)->toEqual(Color::Red)
+        ->and($wallet->icon)->toEqual(Icon::PiggyBank);
 });
 
 it('validates fields on create', function ($property, $value, $rule): void {
