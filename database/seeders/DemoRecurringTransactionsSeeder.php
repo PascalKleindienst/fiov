@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Enums\Icon;
 use App\Enums\RecurringFrequency;
 use App\Models\RecurringTransaction;
-use Database\Factories\RecurringTransactionFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
 use Random\RandomException;
 
@@ -45,7 +45,10 @@ final class DemoRecurringTransactionsSeeder extends Seeder
         ]);
     }
 
-    private function factory(DemoData $demo, string $category): RecurringTransactionFactory
+    /**
+     * @return Factory<RecurringTransaction>
+     */
+    private function factory(DemoData $demo, string $category): Factory
     {
         $factory = RecurringTransaction::factory()->for($demo->user)->for($demo->wallet)->state([
             'currency' => self::$currency,

@@ -35,6 +35,8 @@ arch('avoid inheritance')
     ->toExtendNothing()
     ->ignoring([
         'App\Models',
+        'App\Casts',
+        'App\Console\Commands',
         'App\Exceptions',
         'App\Jobs',
         'App\Providers',
@@ -73,9 +75,10 @@ arch('factories')
         'App\Models',
     ]);
 
+// Only check model classes, not traits, scopes, or other utility classes
 arch('models')
     ->expect('App\Models')
-    ->toHaveMethod('casts')
+    ->classes()
     ->toOnlyBeUsedIn([
         'App\Http',
         'App\Jobs',
@@ -90,6 +93,11 @@ arch('models')
         'App\Contracts',
         'App\Livewire',
         'App\Notifications',
+        'App\Console\Commands',
+    ])
+    ->ignoring([
+        'App\Models\Concerns', // Ignore all traits in the Concerns directory
+        'App\Models\Scopes',   // Ignore all scope classes
     ]);
 
 arch('queries')

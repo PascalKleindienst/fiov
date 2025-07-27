@@ -6,8 +6,9 @@ namespace Database\Seeders;
 
 use App\Enums\Icon;
 use App\Models\WalletTransaction;
-use Database\Factories\WalletTransactionFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Random\RandomException;
 
 final class DemoTransactionsSeeder extends Seeder
@@ -95,7 +96,10 @@ final class DemoTransactionsSeeder extends Seeder
         ]);
     }
 
-    private function factory(DemoData $demo, ?string $category = null): WalletTransactionFactory
+    /**
+     * @return Factory<WalletTransaction>
+     */
+    private function factory(DemoData $demo, ?string $category = null): Factory
     {
         $factory = WalletTransaction::factory()
             ->for($demo->wallet)
@@ -116,11 +120,11 @@ final class DemoTransactionsSeeder extends Seeder
      */
     private function perWeek(int $week, DemoData $demo): void
     {
-        $shops = ['Aldi', 'Lidl', '7-Eleven'];
+        $shop = Arr::random(['Aldi', 'Lidl', '7-Eleven']);
 
         $this->factory($demo, 'groceries')->createMany([
             [
-                'title' => $shops[array_rand($shops)],
+                'title' => $shop,
                 'icon' => Icon::Shopping->value,
                 'amount' => -1 * random_int(3000, 6000),
                 'created_at' => now()->startOfWeek()->subWeeks($week)->weekday(random_int(2, 4)),

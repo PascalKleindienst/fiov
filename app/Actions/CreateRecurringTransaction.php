@@ -8,7 +8,7 @@ use App\Models\RecurringTransaction;
 use App\Models\WalletTransaction;
 use Illuminate\Support\Facades\DB;
 
-final class CreateRecurringTransaction
+final readonly class CreateRecurringTransaction
 {
     public function handle(RecurringTransaction $recurringTransaction): void
     {
