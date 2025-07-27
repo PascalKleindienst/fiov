@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace App\Livewire\Charts;
 
+use App\Contracts\ChartComponent;
 use App\Data\Chart;
 use App\Enums\Color;
 use App\Facades\Wallets;
+use App\Livewire\Concerns\IsChart;
 use App\Models\WalletTransaction;
+use App\Queries\TransactionsByInterval;
 use Livewire\Attributes\Computed;
+use Livewire\Component;
 
-final class TotalSpendings extends ChartComponent
+final class TotalSpendings extends Component implements ChartComponent
 {
+    use IsChart;
+
+    public string $interval = TransactionsByInterval::MONTH;
+
     #[Computed]
     public function chart(): Chart
     {

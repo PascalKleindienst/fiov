@@ -4,14 +4,23 @@ declare(strict_types=1);
 
 namespace App\Livewire\Charts;
 
+use App\Contracts\ChartComponent;
 use App\Data\Chart;
 use App\Enums\Color;
 use App\Facades\Wallets;
+use App\Livewire\Concerns\IsChart;
 use App\Models\WalletTransaction;
+use App\Queries\TransactionsByInterval;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Component;
 
-final class Spendings extends ChartComponent
+final class Spendings extends Component implements ChartComponent
 {
+    use IsChart;
+
+    public string $interval = TransactionsByInterval::MONTH;
+
     #[Computed]
     public function chart(): Chart
     {
@@ -45,11 +54,11 @@ final class Spendings extends ChartComponent
     }
 
     /**
-     * @return array<string, mixed>
+     * @return Collection<string, mixed>
      */
-    private function getChartOptions(): array
+    private function getChartOptions(): Collection
     {
-        return [
+        return collect([
             'chart' => [
                 'stacked' => true,
                 'height' => 700,
@@ -64,6 +73,6 @@ final class Spendings extends ChartComponent
                     ],
                 ],
             ],
-        ];
+        ]);
     }
 }

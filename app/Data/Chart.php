@@ -6,6 +6,7 @@ namespace App\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use JsonException;
 use JsonSerializable;
@@ -13,7 +14,7 @@ use JsonSerializable;
 /**
  * @implements Arrayable<string, mixed>
  */
-final class Chart implements Arrayable, Jsonable, JsonSerializable
+final readonly class Chart implements Arrayable, Jsonable, JsonSerializable
 {
     /**
      * @var Collection<string, array{name: string, data: array{float|int}|array<int, array{x: string|float, y: float}>}>
@@ -21,22 +22,23 @@ final class Chart implements Arrayable, Jsonable, JsonSerializable
     private Collection $series;
 
     /**
-     * @var string[]
+     * @var Collection<int, string>
      */
-    private array $colors = [];
+    private Collection $colors;
 
     /**
      * @param  array<int, array{x: string|float, y: float, color?: string}>  $data
      */
     public function __construct(
-        public readonly string $name,
-        public readonly string $currency,
+        public string $name,
+        public string $currency,
         array $data = [],
-        public readonly float|int $previousTotal = 0,
-        /** @var array<string, mixed> $options */
-        public array $options = []
+        public float|int $previousTotal = 0,
+        /** @var Collection<string, mixed> $options */
+        public Collection $options = new Collection()
     ) {
         $this->series = new Collection();
+        $this->colors = new Collection();
 
         foreach ($data as $dataPoint) {
             $this->addDataPoint($dataPoint['x'], $dataPoint['y']);
@@ -74,7 +76,7 @@ final class Chart implements Arrayable, Jsonable, JsonSerializable
 
         $this->series->put($name, [
             'name' => $name,
-            'data' => [...$this->series[$name]['data'] ?? [], ...$data],
+            'data' => [...Arr::get($this->series->get($name, []), 'data', []), ...$data],
         ]);
 
         return $this;
@@ -82,14 +84,14 @@ final class Chart implements Arrayable, Jsonable, JsonSerializable
 
     public function addColor(string $color): self
     {
-        $this->colors[] = $color;
+        $this->colors->add($color);
 
         return $this;
     }
 
     public function addOption(string $key, mixed $value): self
     {
-        $this->options[$key] = $value;
+        $this->options->put($key, $value);
 
         return $this;
     }
@@ -108,7 +110,6 @@ final class Chart implements Arrayable, Jsonable, JsonSerializable
         return $this->series->sum(function (array $series): float|int {
             $sum = array_sum(array_column($series['data'], 'y')); // sum data with [x, y] coords
 
-            // @phpstan-ignore-next-line
             return $sum !== 0 ? $sum : array_sum($series['data']); // sum data with values only
         });
     }

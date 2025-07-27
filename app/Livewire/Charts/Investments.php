@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace App\Livewire\Charts;
 
+use App\Contracts\ChartComponent;
 use App\Data\Chart;
 use App\Enums\Color;
 use App\Facades\Wallets;
+use App\Livewire\Concerns\IsChart;
 use App\Models\WalletTransaction;
 use App\Queries\TransactionsByInterval;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Component;
 
-final class Investments extends ChartComponent
+final class Investments extends Component implements ChartComponent
 {
+    use IsChart;
+
     public string $interval = TransactionsByInterval::YEAR;
 
     #[Computed]
@@ -36,17 +42,21 @@ final class Investments extends ChartComponent
         return $chart;
     }
 
-    protected function query(Builder $query): Builder
+    /**
+     * @param  Builder<WalletTransaction>  $query
+     * @return Builder<WalletTransaction>
+     */
+    public function query(Builder $query): Builder
     {
         return $query->where('is_investment', true);
     }
 
     /**
-     * @return array<string, mixed>
+     * @return Collection<string, mixed>
      */
-    private function getChartOptions(): array
+    private function getChartOptions(): Collection
     {
-        return [
+        return collect([
             'chart' => [
                 'type' => 'area',
             ],
@@ -65,6 +75,6 @@ final class Investments extends ChartComponent
                     ],
                 ],
             ],
-        ];
+        ]);
     }
 }
