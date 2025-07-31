@@ -121,7 +121,15 @@ final readonly class Chart implements Arrayable, Jsonable, JsonSerializable
      */
     public function toJson($options = 0): string // @pest-ignore-type
     {
-        return json_encode($this->toArray(), $options | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        return json_encode($this, $options | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 
     public function toArray(): array
@@ -131,13 +139,5 @@ final readonly class Chart implements Arrayable, Jsonable, JsonSerializable
             'colors' => $this->colors,
             ...$this->options,
         ];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }
