@@ -1178,16 +1178,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.20.0",
+            "version": "v12.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1b9a00f8caf5503c92aa436279172beae1a484ff"
+                "reference": "ac8c4e73bf1b5387b709f7736d41427e6af1c93b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1b9a00f8caf5503c92aa436279172beae1a484ff",
-                "reference": "1b9a00f8caf5503c92aa436279172beae1a484ff",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ac8c4e73bf1b5387b709f7736d41427e6af1c93b",
+                "reference": "ac8c4e73bf1b5387b709f7736d41427e6af1c93b",
                 "shasum": ""
             },
             "require": {
@@ -1389,7 +1389,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-07-08T15:02:21+00:00"
+            "time": "2025-07-22T15:41:55+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -8323,16 +8323,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.43.1",
+            "version": "v1.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "3e7d899232a8c5e3ea4fc6dee7525ad583887e72"
+                "reference": "a09097bd2a8a38e23ac472fa6a6cf5b0d1c1d3fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/3e7d899232a8c5e3ea4fc6dee7525ad583887e72",
-                "reference": "3e7d899232a8c5e3ea4fc6dee7525ad583887e72",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/a09097bd2a8a38e23ac472fa6a6cf5b0d1c1d3fe",
+                "reference": "a09097bd2a8a38e23ac472fa6a6cf5b0d1c1d3fe",
                 "shasum": ""
             },
             "require": {
@@ -8382,20 +8382,20 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2025-05-19T13:19:21+00:00"
+            "time": "2025-07-04T16:17:06+00:00"
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.10.0",
+            "version": "v5.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "fc0a8662682c0375b534033873debb780c003486"
+                "reference": "6d249d93ab06dc147ac62ea02b4272c2e7a24b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/fc0a8662682c0375b534033873debb780c003486",
-                "reference": "fc0a8662682c0375b534033873debb780c003486",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/6d249d93ab06dc147ac62ea02b4272c2e7a24b72",
+                "reference": "6d249d93ab06dc147ac62ea02b4272c2e7a24b72",
                 "shasum": ""
             },
             "require": {
@@ -8449,9 +8449,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v5.10.0"
+                "source": "https://github.com/laravel/telescope/tree/v5.10.2"
             },
-            "time": "2025-07-07T14:47:19+00:00"
+            "time": "2025-07-24T05:26:13+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -9095,22 +9095,22 @@
         },
         {
             "name": "pestphp/pest-plugin-type-coverage",
-            "version": "v3.6.0",
+            "version": "v3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-type-coverage.git",
-                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210"
+                "reference": "86c4074d7213cbaba7accb13f6221533edbfb81e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/dff0a51ad90a4cd5795cccd2f8805806a4658210",
-                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/86c4074d7213cbaba7accb13f6221533edbfb81e",
+                "reference": "86c4074d7213cbaba7accb13f6221533edbfb81e",
                 "shasum": ""
             },
             "require": {
                 "pestphp/pest-plugin": "^3.0.0",
                 "php": "^8.2",
-                "phpstan/phpstan": "^1.12.21|^2.1.17",
+                "phpstan/phpstan": "^1.12.21|^2.1.19",
                 "tomasvotruba/type-coverage": "^1.0.0|^2.0.2"
             },
             "require-dev": {
@@ -9147,7 +9147,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.6.0"
+                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.6.1"
             },
             "funding": [
                 {
@@ -9159,7 +9159,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-05T17:57:07+00:00"
+            "time": "2025-07-22T11:55:56+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -9503,16 +9503,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.18",
+            "version": "2.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7"
+                "reference": "a9ccfef95210f92ba6feea6e8d1eef42b5605499"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ee1f390b7a70cdf74a2b737e554f68afea885db7",
-                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a9ccfef95210f92ba6feea6e8d1eef42b5605499",
+                "reference": "a9ccfef95210f92ba6feea6e8d1eef42b5605499",
                 "shasum": ""
             },
             "require": {
@@ -9557,7 +9557,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-17T17:22:31+00:00"
+            "time": "2025-07-26T20:45:26+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -11111,16 +11111,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.3.0",
+            "version": "v7.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "cea40a48279d58dc3efee8112634cb90141156c2"
+                "reference": "0c3555045a46ab3cd4cc5a69d161225195230edb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/cea40a48279d58dc3efee8112634cb90141156c2",
-                "reference": "cea40a48279d58dc3efee8112634cb90141156c2",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0c3555045a46ab3cd4cc5a69d161225195230edb",
+                "reference": "0c3555045a46ab3cd4cc5a69d161225195230edb",
                 "shasum": ""
             },
             "require": {
@@ -11163,7 +11163,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.3.0"
+                "source": "https://github.com/symfony/yaml/tree/v7.3.1"
             },
             "funding": [
                 {
@@ -11179,7 +11179,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-04T10:10:33+00:00"
+            "time": "2025-06-03T06:57:57+00:00"
         },
         {
             "name": "ta-tikoma/phpunit-architecture-test",
