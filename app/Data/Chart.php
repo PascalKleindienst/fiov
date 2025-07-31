@@ -19,12 +19,12 @@ final readonly class Chart implements Arrayable, Jsonable, JsonSerializable
     /**
      * @var Collection<string, array{name: string, data: array{float|int}|array<int, array{x: string|float, y: float}>}>
      */
-    private Collection $series;
+    public Collection $series;
 
     /**
      * @var Collection<int, string>
      */
-    private Collection $colors;
+    public Collection $colors;
 
     /**
      * @param  array<int, array{x: string|float, y: float, color?: string}>  $data
