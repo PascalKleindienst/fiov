@@ -27,13 +27,13 @@ final readonly class TransactionsByInterval implements FilterInterface
     public function __invoke(Builder $query): Builder
     {
         $dayInterval = match ($this->interval) {
-            self::WEEK => now()->subDays(7)->startOfDay(),
-            self::MONTH => now()->subDays(30)->startOfDay(),
-            self::YEAR => now()->subDays(365)->startOfDay(),
-            default => now()->subDays(1)->startOfDay(),
+            self::WEEK => now()->subWeek()->startOfDay(),
+            self::MONTH => now()->subMonth()->startOfDay(),
+            self::YEAR => now()->subYear()->startOfDay(),
+            default => now()->subDay()->startOfDay(),
         };
 
-        return $query->where('created_at', '>=', $dayInterval)
+        return $query->where('created_at', '>=', $dayInterval->toDateString())
             ->orderBy('created_at', $this->direction);
     }
 }

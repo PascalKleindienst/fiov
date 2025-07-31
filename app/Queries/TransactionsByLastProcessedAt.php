@@ -22,7 +22,7 @@ final readonly class TransactionsByLastProcessedAt implements FilterInterface
         return $query->where(fn (Builder $q) => $q
             ->whereNull('last_processed_at')
             ->orWhere(fn (Builder $q) => $q
-                ->where('last_processed_at', '<', $this->today->copy()->startOfDay())
+                ->where('last_processed_at', '<', $this->today->copy()->startOfDay()->toDateTimeString())
                 ->where(fn (Builder $q2) => $q2
                     ->where('frequency', RecurringFrequency::DAILY)
                     ->orWhere($this->weekly(...))

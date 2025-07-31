@@ -27,21 +27,21 @@ final readonly class GrowthInterval implements FilterInterface
     public function __invoke(Builder $query): Builder
     {
         $from = match ($this->interval) {
-            self::WEEK => now()->subDays(7 * 2)->startOfDay(),
-            self::MONTH => now()->subDays(30 * 2)->startOfDay(),
-            self::YEAR => now()->subDays(365 * 2)->startOfDay(),
+            self::WEEK => now()->subWeeks(2)->startOfDay(),
+            self::MONTH => now()->subMonths(2)->startOfDay(),
+            self::YEAR => now()->subYears(2)->startOfDay(),
             default => now()->subDays(2)->startOfDay(),
         };
 
         $to = match ($this->interval) {
-            self::WEEK => now()->subDays(7)->endOfDay(),
-            self::MONTH => now()->subDays(30)->endOfDay(),
-            self::YEAR => now()->subDays(365)->endOfDay(),
-            default => now()->subDays(1)->endOfDay(),
+            self::WEEK => now()->subWeek()->endOfDay(),
+            self::MONTH => now()->subMonth()->endOfDay(),
+            self::YEAR => now()->subYear()->endOfDay(),
+            default => now()->subDay()->endOfDay(),
         };
 
-        return $query->where('created_at', '>=', $from)
-            ->where('created_at', '<', $to)
+        return $query->where('created_at', '>=', $from->toDateString())
+            ->where('created_at', '<', $to->toDateString())
             ->orderBy('created_at', $this->direction);
     }
 }
