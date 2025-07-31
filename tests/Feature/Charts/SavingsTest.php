@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use Livewire\Livewire;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
@@ -52,6 +53,7 @@ it('displays all transactions accumulated by time interval', function (): void {
 
     // Assert
     $component->assertViewIs('livewire.charts.chart');
+
     $chart = $component->instance()->chart();
 
     expect($chart->name)->toBe(__('charts.savings'))

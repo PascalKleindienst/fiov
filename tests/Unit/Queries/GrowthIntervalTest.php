@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Queries\GrowthInterval;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
-beforeEach(function () {
+beforeEach(function (): void {
     // Freeze time for consistent test results
     Carbon::setTestNow(now());
 });
 
-it('applies the interval when invalid interval is provided', function ($interval, $direction, $from, $to) {
+it('applies the interval when invalid interval is provided', function ($interval, $direction, $from, $to): void {
     // Assert
     $builder = mock(Builder::class);
     $builder->shouldReceive('where')

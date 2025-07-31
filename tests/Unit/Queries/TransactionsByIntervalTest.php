@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Queries\TransactionsByInterval;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
-beforeEach(function () {
+beforeEach(function (): void {
     // Freeze time for consistent test results
     Carbon::setTestNow(now());
 });
 
-it('applies the interval when invalid interval is provided', function ($interval, $direction, $from) {
+it('applies the interval when invalid interval is provided', function ($interval, $direction, $from): void {
     // Assert
     $builder = mock(Builder::class);
     $builder->shouldReceive('where')

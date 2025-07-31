@@ -8,11 +8,12 @@ use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use Database\Seeders\DemoDataSeeder;
 use Illuminate\Support\Facades\Route;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 // Set up the test environment
-beforeEach(function () {
+beforeEach(function (): void {
     // Ensure the dashboard route exists
     expect(Route::has('dashboard'))->toBeTrue();
     $this->seed(DemoDataSeeder::class);

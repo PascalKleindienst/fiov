@@ -8,6 +8,7 @@ use App\Models\Wallet;
 use App\Models\WalletCategory;
 use App\Models\WalletTransaction;
 use Livewire\Livewire;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
@@ -55,6 +56,7 @@ it('displays spending transactions grouped by time interval and category', funct
 
     // Assert
     $component->assertViewIs('livewire.charts.chart');
+
     $chart = $component->instance()->chart();
     $seriesNames = $chart->series->pluck('name')->toArray();
 

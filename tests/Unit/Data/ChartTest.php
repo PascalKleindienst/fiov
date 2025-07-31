@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use App\Data\Chart;
 
-it('can be instantiated', function () {
+it('can be instantiated', function (): void {
     expect(new Chart('Test Chart', 'USD'))
         ->toBeInstanceOf(Chart::class)
         ->name->toBe('Test Chart')
         ->currency->toBe('USD');
 });
 
-it('can add data points', function () {
+it('can add data points', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD');
     $chart->addDataPoint('Category 1', 100.50);
@@ -30,7 +30,7 @@ it('can add data points', function () {
         ->toMatchArray(['x' => 'Category 2', 'y' => 200.75]);
 });
 
-it('can add series', function () {
+it('can add series', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD');
 
@@ -48,7 +48,7 @@ it('can add series', function () {
         ->toMatchArray(['name' => 'Series 2']);
 });
 
-it('can add colors', function () {
+it('can add colors', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD');
 
@@ -63,7 +63,7 @@ it('can add colors', function () {
         ->toContain('#FF0000', '#00FF00');
 });
 
-it('can add colors via the constructor', function () {
+it('can add colors via the constructor', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD', [['x' => 'A', 'y' => 10, 'color' => '#FF0000']]);
 
@@ -75,7 +75,7 @@ it('can add colors via the constructor', function () {
         ->toContain('#FF0000');
 });
 
-it('can add options', function () {
+it('can add options', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD');
 
@@ -89,7 +89,7 @@ it('can add options', function () {
         ->toHaveKey('yaxis');
 });
 
-it('calculates growth', function () {
+it('calculates growth', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD', previousTotal: 100);
 
@@ -100,7 +100,7 @@ it('calculates growth', function () {
     expect($chart->growth())->toBe(50.0);
 });
 
-it('handles empty data when calculating growth', function () {
+it('handles empty data when calculating growth', function (): void {
     // When previous total is 0 and current total is 0, growth should be 100
     $chart = new Chart('Test Chart', 'USD', previousTotal: 0);
     expect($chart->growth())->toBe(100.0);
@@ -110,7 +110,7 @@ it('handles empty data when calculating growth', function () {
     expect($chartWithData->growth())->toBe(100.0);
 });
 
-it('can be converted to json', function () {
+it('can be converted to json', function (): void {
     // Arrange
     $chart = new Chart('Test Chart', 'USD');
     $chart->addDataPoint('A', 10);
@@ -127,7 +127,7 @@ it('can be converted to json', function () {
         ->toHaveKey('colors');
 });
 
-it(' implements arrayable and jsonable', function () {
+it(' implements arrayable and jsonable', function (): void {
     $chart = new Chart('Test', 'USD');
 
     expect($chart)
