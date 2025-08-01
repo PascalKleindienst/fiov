@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Concerns;
 
 use App\Attributes\TranslatedFormFields;
+use Livewire\Form;
 use ReflectionClass;
 
 /**
- * @mixin \Livewire\Component
+ * @mixin Form
  */
 trait WithTranslatedFields
 {
@@ -17,7 +18,8 @@ trait WithTranslatedFields
      */
     protected function validationAttributes(): array
     {
-        $attributes = new ReflectionClass($this)->getAttributes();
+        $form = new ReflectionClass($this);
+        $attributes = $form->getAttributes();
         $prefix = 'validation.';
 
         if ($attributes !== []) {
@@ -29,9 +31,18 @@ trait WithTranslatedFields
         }
 
         $messages = [];
-
         foreach (array_keys($this->all()) as $key) {
-            $messages[$key] = (string) __($prefix.$key);
+            $label = $prefix.$key;
+
+            foreach ($this->validationAttributesFromOutside as $field => $attributes) {
+                if ($attributes[$key] ?? null) {
+                    $label = $prefix.$attributes[$key];
+                    unset($this->validationAttributesFromOutside[$field][$key]);
+                    break;
+                }
+            }
+
+            $messages[$key] = (string) __($label);
         }
 
         return $messages;
