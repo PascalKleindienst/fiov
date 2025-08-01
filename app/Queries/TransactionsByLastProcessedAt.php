@@ -39,7 +39,7 @@ final readonly class TransactionsByLastProcessedAt implements FilterInterface
     private function weekly(Builder $query): void
     {
         $query->where('frequency', RecurringFrequency::WEEKLY)
-            ->whereRaw('DAYOFWEEK(start_date) = DAYOFWEEK(?)', [$this->today]);
+            ->whereRaw('strftime("%w", start_date) = strftime("%w", ?)', [$this->today]);
     }
 
     /**

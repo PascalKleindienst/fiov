@@ -19,7 +19,6 @@ final readonly class CreateRecurringTransaction
                 'currency' => $recurringTransaction->currency,
                 'is_investment' => $recurringTransaction->is_investment,
                 'icon' => $recurringTransaction->icon,
-                'user_id' => $recurringTransaction->user_id,
                 'wallet_id' => $recurringTransaction->wallet_id,
                 'wallet_category_id' => $recurringTransaction->wallet_category_id,
             ]);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\EncryptedMoneyCast;
+use App\Enums\Icon;
 use App\Models\Concerns\Encryptable;
 use Database\Factories\WalletTransactionFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,7 +17,7 @@ use Illuminate\Support\Str;
 /**
  * @property int $id
  * @property string $title
- * @property string|null $icon
+ * @property Icon|null $icon
  * @property \Cknow\Money\Money $amount
  * @property string|null $currency
  * @property bool $is_investment
@@ -109,6 +110,7 @@ final class WalletTransaction extends Model
             'is_investment' => 'boolean',
             'title' => 'encrypted',
             'amount' => EncryptedMoneyCast::class.':currency',
+            'icon' => Icon::class,
         ];
     }
 }

@@ -27,7 +27,7 @@ final class RecurringTransactionFactory extends Factory
             'title' => $this->faker->word(),
             'icon' => $this->faker->randomElement(Icon::values()),
             'amount' => $this->faker->randomNumber(4),
-            'currency' => Currency::EUR,
+            'currency' => Currency::EUR->value,
             'is_investment' => $this->faker->boolean(),
             'frequency' => $this->faker->randomElement(RecurringFrequency::values()),
             'start_date' => Carbon::now(),
