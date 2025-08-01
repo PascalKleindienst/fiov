@@ -93,12 +93,12 @@
 }
 
 
-/*input:focus[data-flux-control],*/
-/*textarea:focus[data-flux-control],*/
-/*select:focus[data-flux-control] {*/
-/*    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;*/
-/*}*/
-
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+/**
+ * Forms
+ */
+[data-flux-field]:has(input:required) > [data-flux-label]::after,
+[data-flux-field]:has(select:required) > [data-flux-label]::after {
+    content: '*';
+    margin-top: -0.25rem;
+    margin-left: 0.125rem;
+}

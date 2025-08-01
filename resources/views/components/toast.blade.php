@@ -36,7 +36,7 @@
                         'bg-white dark:bg-zinc-800': ! toast.variant,
                     }"
                 >
-                    <div class="shrink-0 self-center" x-cloak x-show="toast.variant">
+                    <div class="mt-1 shrink-0 self-start" x-cloak x-show="toast.variant">
                         <template x-if="toast.variant === 'success'">
                             <flux:icon icon="check" class="size-4 text-green-500" />
                         </template>
@@ -47,13 +47,13 @@
                             <flux:icon icon="triangle-alert" class="size-4 text-amber-600" />
                         </template>
                     </div>
-                    <div class="flex-1">
+                    <div class="flex-1 [word-break:break-word] hyphens-auto">
                         <template x-if="toast.heading">
                             <flux:heading size="md" x-text="toast.heading" />
                         </template>
-                        <flux:text x-text="toast.text" />
+                        <flux:text x-html="toast.text" />
                     </div>
-                    <div class="shrink-0">
+                    <div class="shrink-0 self-start">
                         <flux:button inset size="xs" variant="subtle" x-on:click="close(toast.id)">
                             <span class="sr-only">{{ __('Close') }}</span>
                             <flux:icon icon="x-mark" class="size-4" />
