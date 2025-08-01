@@ -25,7 +25,7 @@ it('creates a wallet transaction and updates last_processed_at', function (): vo
         ->and($recurring->last_processed_at)->toBeNull();
 
     // Act
-    (new CreateRecurringTransaction())->handle($recurring);
+    resolve(CreateRecurringTransaction::class)->handle($recurring);
 
     $recurring->refresh();
 
