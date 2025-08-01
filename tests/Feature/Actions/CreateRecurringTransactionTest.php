@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\CreateRecurringTransaction;
 use App\Models\RecurringTransaction;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
+
 use function Pest\Laravel\actingAs;
 
-
-it('creates a wallet transaction and updates last_processed_at', function () {
+it('creates a wallet transaction and updates last_processed_at', function (): void {
     // Arrange
     $user = User::factory()->create();
     $wallet = Wallet::factory()->for($user, 'user')->create();
@@ -38,4 +40,3 @@ it('creates a wallet transaction and updates last_processed_at', function () {
         ->and($database->wallet_category_id)->toEqual($recurring->wallet_category_id)
         ->and($recurring->last_processed_at)->not()->toBeNull();
 });
-

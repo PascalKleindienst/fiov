@@ -5,17 +5,18 @@ declare(strict_types=1);
 use App\Models\RecurringTransaction;
 use App\Models\User;
 use App\Models\WalletTransaction;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\artisan;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed(\Database\Seeders\DemoDataSeeder::class);
     WalletTransaction::query()->delete();
     $this->user = User::first();
     actingAs($this->user);
 });
 
-it('processes eligible recurring transactions', function () {
+it('processes eligible recurring transactions', function (): void {
     // Arrange
     $recurring = RecurringTransaction::factory()->for($this->user, 'user')->create([
         'is_active' => true,
@@ -41,7 +42,7 @@ it('processes eligible recurring transactions', function () {
         ->and($recurring->last_processed_at)->not()->toBeNull();
 });
 
-it('does not process inactive recurring transactions', function () {
+it('does not process inactive recurring transactions', function (): void {
     // Arrange
     $recurring = RecurringTransaction::factory()->for($this->user, 'user')->create([
         'is_active' => false,
