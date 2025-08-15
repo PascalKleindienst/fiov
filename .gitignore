@@ -23,5 +23,6 @@ yarn-error.log
 /.zed
 .phpstorm.meta.php
 _ide_helper.php
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+/docs/.vitepress/dist/
+/docs/.vitepress/cache/
+/dist
