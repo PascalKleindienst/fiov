@@ -14,11 +14,13 @@ use Livewire\Features\SupportFormObjects\SupportFormObjects;
  */
 trait WithModel
 {
+    /** @var TModel|null */
     public ?Model $model = null;
 
     public function setModel(?Model $model): void
     {
         if ($model instanceof \Illuminate\Database\Eloquent\Model) {
+            /** @var TModel $model */
             $this->model = $model;
             $this->fill($this->model->toArray());
         }

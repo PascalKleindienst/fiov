@@ -8,6 +8,8 @@ use App\Attributes\TranslatedFormFields;
 use Livewire\Form;
 use ReflectionClass;
 
+use function is_string;
+
 /**
  * @mixin Form
  */
@@ -42,7 +44,9 @@ trait WithTranslatedFields
                 }
             }
 
-            $messages[$key] = (string) __($label);
+            if (is_string(__($label))) {
+                $messages[$key] = __($label);
+            }
         }
 
         return $messages;

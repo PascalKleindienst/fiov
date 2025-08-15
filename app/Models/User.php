@@ -43,6 +43,12 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  *
+ * @property string $encrypted_dek
+ * @property string $encryption_salt
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEncryptedDek($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEncryptionSalt($value)
+ *
  * @mixin \Eloquent
  */
 final class User extends Authenticatable implements MustVerifyEmail
@@ -107,6 +113,14 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function walletTransactions(): HasManyThrough
     {
         return $this->hasManyThrough(WalletTransaction::class, Wallet::class)->with(['wallet', 'category'])->latest();
+    }
+
+    /**
+     * @return HasManyThrough<WalletCategoryRule, WalletCategory, $this>
+     */
+    public function walletCategoryRules(): HasManyThrough
+    {
+        return $this->hasManyThrough(WalletCategoryRule::class, WalletCategory::class)->with(['category']);
     }
 
     /**

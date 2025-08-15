@@ -13,6 +13,8 @@ declare(strict_types=1);
 |
 */
 
+use Illuminate\Database\Eloquent\Model;
+
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature', 'Unit');
@@ -28,7 +30,33 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', fn () => $this->toBe(1));
+expect()->extend('databaseToHaveEncrypted', function (array $data) {
+    /** @var class-string<Model> $model */
+    $model = new $this->value();
+    expect($model)->toBeInstanceOf(Model::class);
+
+    $entity = $model::query()->latest()->get();
+
+    if ($entity->isEmpty()) {
+        test()->fail('No entity found');
+    }
+
+    $exists = $entity->filter(function (Model $item) use ($data): bool {
+        foreach ($data as $key => $value) {
+            if ($item->getAttribute($key) != $value) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+
+    if ($exists->isEmpty()) {
+        test()->fail('Failed asserting that a row in the table ['.$model->getTable().'] matches the attributes '.json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+    return $this;
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +68,3 @@ expect()->extend('toBeOne', fn () => $this->toBe(1));
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-
-function something(): void
-{
-    // ..
-}
