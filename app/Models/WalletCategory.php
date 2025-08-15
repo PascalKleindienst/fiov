@@ -39,6 +39,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUserId($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletCategoryRule> $rules
+ * @property-read int|null $rules_count
+ *
  * @mixin \Eloquent
  */
 #[ScopedBy(OwnerScope::class)]
@@ -63,6 +66,14 @@ final class WalletCategory extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return HasMany<WalletCategoryRule, $this>
+     */
+    public function rules(): HasMany
+    {
+        return $this->hasMany(WalletCategoryRule::class);
     }
 
     /**

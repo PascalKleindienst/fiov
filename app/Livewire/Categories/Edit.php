@@ -6,6 +6,7 @@ namespace App\Livewire\Categories;
 
 use App\Concerns\WithBreadcrumbs;
 use App\Data\BreadcrumbItemData;
+use App\Livewire\Concerns\WithRules;
 use App\Livewire\Forms\WalletCategoryForm;
 use App\Models\WalletCategory;
 use Flux\Flux;
@@ -16,6 +17,7 @@ use Livewire\Component;
 final class Edit extends Component
 {
     use WithBreadcrumbs;
+    use WithRules;
 
     public WalletCategoryForm $form;
 
@@ -23,7 +25,7 @@ final class Edit extends Component
     {
         abort_if(! Auth::user(), 403);
 
-        $this->form->setModel($walletCategory);
+        $this->form->setModel($walletCategory?->loadMissing('rules'));
 
         $this->withBreadcrumbs(
             new BreadcrumbItemData(__('categories.index'), route('categories.index')),

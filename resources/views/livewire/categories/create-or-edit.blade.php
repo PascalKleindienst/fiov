@@ -43,6 +43,59 @@
             </flux:radio.group>
         </div>
 
+        <div class="col-span-full">
+            <flux:heading size="lg" level="2" class="mb-4">
+                {{ __('categories.fields.rules.title') }}
+            </flux:heading>
+
+            <div class="mb-4 grid grid-cols-4 gap-4">
+                @foreach ($this->form->rules as $index => $rule)
+                    @if ($rule !== null)
+                        <div>
+                            <flux:select wire:model="form.rules.{{ $index }}.field" :label="__('categories.fields.rules.field')">
+                                <flux:select.option value="title">{{ __('transactions.fields.title') }}</flux:select.option>
+                                <flux:select.option value="icon">{{ __('transactions.fields.icon') }}</flux:select.option>
+                                <flux:select.option value="amount">{{ __('transactions.fields.amount') }}</flux:select.option>
+                                <flux:select.option value="is_investment">{{ __('transactions.fields.is_investment') }}</flux:select.option>
+                            </flux:select>
+                        </div>
+                        <div>
+                            <flux:select wire:model="form.rules.{{ $index }}.operator" :label="__('categories.fields.rules.operator')">
+                                @foreach (\App\Enums\RuleOperator::cases() as $operator)
+                                    <flux:select.option :value="$operator->value">{{ $operator->label() }}</flux:select.option>
+                                @endforeach
+                            </flux:select>
+                        </div>
+                        <div>
+                            <flux:input
+                                type="text"
+                                wire:model="form.rules.{{ $index }}.value"
+                                :label="__('categories.fields.rules.value')"
+                                placeholder="foo"
+                            />
+                        </div>
+
+                        <div class="place-content-end">
+                            <flux:button
+                                variant="danger"
+                                type="button"
+                                wire:click="removeRule({{ $index }})"
+                                class="items-baseline"
+                                :title="__('categories.rules.remove')"
+                            >
+                                <flux:icon name="trash" class="size-4" />
+                                <span class="sr-only">{{ __('categories.rules.remove') }}</span>
+                            </flux:button>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+            <flux:button variant="primary" type="button" wire:click="addRule" icon="plus">
+                {{ __('categories.rules.add') }}
+            </flux:button>
+        </div>
+
         <flux:error name="form.capability" />
 
         <flux:button variant="primary" type="submit" class="w-full">

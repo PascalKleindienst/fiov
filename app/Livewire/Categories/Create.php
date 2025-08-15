@@ -6,6 +6,7 @@ namespace App\Livewire\Categories;
 
 use App\Concerns\WithBreadcrumbs;
 use App\Data\BreadcrumbItemData;
+use App\Livewire\Concerns\WithRules;
 use App\Livewire\Forms\WalletCategoryForm;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -13,6 +14,7 @@ use Livewire\Component;
 final class Create extends Component
 {
     use WithBreadcrumbs;
+    use WithRules;
 
     public WalletCategoryForm $form;
 

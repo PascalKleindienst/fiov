@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Livewire\Transactions;
 
+use App\Facades\RuleEngine;
 use App\Facades\Wallets;
 use App\Livewire\Forms\TransactionForm;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Throwable;
@@ -24,6 +26,19 @@ final class Create extends Component
         $this->form->fill([
             'wallet_id' => Wallets::current()->id,
         ]);
+    }
+
+    public function updated(string $property, mixed $value): void
+    {
+        if (Str::startsWith($property, 'form.')) {
+            $property = Str::substr($property, 5);
+        }
+
+        $category = RuleEngine::apply([$property => $value]);
+
+        if ($category && $this->form->wallet_category_id === null) {
+            $this->form->wallet_category_id = $category->id;
+        }
     }
 
     /**

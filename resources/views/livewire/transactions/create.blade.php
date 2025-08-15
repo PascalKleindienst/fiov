@@ -1,7 +1,7 @@
 <form wire:submit.prevent="save" class="grid gap-6 md:grid-cols-2">
-    <flux:input :label="__('transactions.fields.title')" wire:model="form.title" required autofocus />
+    <flux:input :label="__('transactions.fields.title')" wire:model.blur="form.title" required autofocus />
 
-    <flux:input :label="__('transactions.fields.amount')" type="number" step="0.01" wire:model="form.amount" required />
+    <flux:input :label="__('transactions.fields.amount')" type="number" step="0.01" wire:model.blur="form.amount" required />
 
     <flux:select :label="__('transactions.fields.category')" wire:model="form.wallet_category_id" required>
         <flux:select.option value="">--- {{ __('general.please_select') }} ---</flux:select.option>
@@ -19,7 +19,7 @@
     <div class="col-span-full">
         <flux:radio.group
             :label="__('categories.fields.icon')"
-            wire:model="form.icon"
+            wire:model.blur="form.icon"
             class="grid [grid-template-columns:repeat(auto-fill,minmax(48px,1fr))] gap-4 [&>[data-flux-field]]:mb-0"
         >
             @foreach (\App\Enums\Icon::cases() as $icon)

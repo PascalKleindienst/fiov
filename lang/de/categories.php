@@ -12,6 +12,17 @@ return [
         'title' => 'Titel',
         'color' => 'Farbe',
         'icon' => 'Icon',
+        'rules' => [
+            'title' => 'Regeln',
+            'operator' => 'Operator',
+            'field' => 'Feld',
+            'value' => 'Wert',
+        ]
+    ],
+
+    'rules' => [
+        'add' => 'Regel hinzufügen',
+        'remove' => 'Regel entfernen',
     ],
 
     'confirm_delete' => 'Diese Kategorie wirklich löschen?',

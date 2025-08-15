@@ -12,5 +12,7 @@ return [
         'is_recurring' => 'Recurring',
         'recurring_frequency' => 'Frequency',
         'recurring_end_date' => 'End date',
+        'icon' => 'Icon',
+        'is_investment' => 'Investment',
     ],
 ];
