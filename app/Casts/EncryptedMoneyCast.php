@@ -20,7 +20,7 @@ final class EncryptedMoneyCast extends MoneyDecimalCast
     public function get($model, string $key, mixed $value, array $attributes): ?\Cknow\Money\Money  // @pest-ignore-type
     {
         try {
-            $value = $model::$encrypter?->decrypt($value)['amount'];
+            $value = $model::$encrypter?->decrypt($value)[$key];
         } catch (Exception) {
         }
 
@@ -37,7 +37,7 @@ final class EncryptedMoneyCast extends MoneyDecimalCast
     {
         try {
             return [
-                'amount' => $model::$encrypter?->encrypt(parent::set($model, $key, $value, $attributes)),
+                $key => $model::$encrypter?->encrypt(parent::set($model, $key, $value, $attributes)),
                 'currency' => $attributes['currency'] ?? config('money.defaultCurrency'),
             ];
         } catch (Exception) {
