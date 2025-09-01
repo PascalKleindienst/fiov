@@ -8,6 +8,8 @@ use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -56,6 +58,11 @@ final class AppServiceProvider extends ServiceProvider
             Model::shouldBeStrict();
             Model::unguard();
         }
+
+        Blueprint::macro('encrypted', function (string $column): ColumnDefinition {
+            /** @var Blueprint $this */
+            return $this->text($column);
+        });
     }
 
     private function configureDates(): void
