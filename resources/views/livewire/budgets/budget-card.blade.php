@@ -37,21 +37,25 @@
             <flux:button icon="ellipsis-vertical" variant="subtle" aria-label="{{ __('general.actions') }}"></flux:button>
 
             <flux:menu>
-                <flux:menu.item icon="pencil" href="{{ route('budgets.edit', $budget) }}" wire:navigate>
-                    {{ __('budgets.actions.edit') }}
-                </flux:menu.item>
-
-                @if ($budget->status->isPaused())
-                    <flux:menu.item icon="play" wire:click="resume()">{{ __('budgets.actions.resume') }}</flux:menu.item>
-                @else
-                    <flux:menu.item icon="pause" wire:click="pause()">{{ __('budgets.actions.pause') }}</flux:menu.item>
-                @endif
-
-                <flux:modal.trigger name="confirm-budget-deletion-{{ $budget->id }}">
-                    <flux:menu.item :title="__('budgets.actions.delete', ['name' => $budget->title])" variant="danger" icon="trash">
-                        {{ __('budgets.actions.delete') }}
+                @can('update', $budget)
+                    <flux:menu.item icon="pencil" href="{{ route('budgets.edit', $budget) }}" wire:navigate>
+                        {{ __('budgets.actions.edit') }}
                     </flux:menu.item>
-                </flux:modal.trigger>
+
+                    @if ($budget->status->isPaused())
+                        <flux:menu.item icon="play" wire:click="resume()">{{ __('budgets.actions.resume') }}</flux:menu.item>
+                    @else
+                        <flux:menu.item icon="pause" wire:click="pause()">{{ __('budgets.actions.pause') }}</flux:menu.item>
+                    @endif
+                @endcan
+
+                @can('delete', $budget)
+                    <flux:modal.trigger name="confirm-budget-deletion-{{ $budget->id }}">
+                        <flux:menu.item :title="__('budgets.actions.delete', ['name' => $budget->title])" variant="danger" icon="trash">
+                            {{ __('budgets.actions.delete') }}
+                        </flux:menu.item>
+                    </flux:modal.trigger>
+                @endcan
             </flux:menu>
         </flux:dropdown>
     </div>

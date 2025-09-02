@@ -6,6 +6,7 @@ return [
     'save' => 'Speichern',
     'cancel' => 'Abbrechen',
     'delete' => 'Löschen',
+    'all_items' => 'Alle Elemente',
     'changes_have_been_saved' => 'Ihre Änderungen wurden gespeichert.',
     'toggle_status' => 'Status umschalten',
     'until_date' => 'Bis :date',
@@ -15,6 +16,9 @@ return [
     'no' => 'Nein',
     'required_fields' => 'Die Markierten Felder sind erforderlich',
     'error_notification' => "Es ist ein Fehler aufgetreten. Bitte versuche es erneut.<br/><br/>Fehler: :error",
+    'search' => 'Suchen',
+    'search_placeholder' => 'Suchen...',
+    'actions' => 'Aktionen',
     'operator' => [
         'equals' => 'ist gleich',
         'not_equal' => 'ist nicht gleich',
@@ -28,5 +32,10 @@ return [
         'not_starts_with' => 'beginnt nicht mit',
         'ends_with' => 'endet mit',
         'not_ends_with' => 'endet nicht mit',
+    ],
+    'priority' => [
+        'low' => 'Niedrig',
+        'medium' => 'Mittel',
+        'high' => 'Hoch',
     ],
 ];

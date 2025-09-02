@@ -6,6 +6,7 @@ return [
     'save' => 'Save',
     'cancel' => 'Cancel',
     'delete' => 'Delete',
+    'all_items' => 'All Items',
     'changes_have_been_saved' => 'Your changes have been saved',
     'toggle_status' => 'Toggle Status',
     'until_date' => 'Until :date',
@@ -15,6 +16,9 @@ return [
     'no' => 'No',
     'required_fields' => 'The marked fields are required',
     'error_notification' => "An error has occurred. Please try again.<br/><br/>Error: :error",
+    'search' => 'Search',
+    'search_placeholder' => 'Search...',
+    'actions' => 'Actions',
     'operator' => [
         'equals' => 'is equal to',
         'not_equal' => 'is not equal to',
@@ -28,5 +32,10 @@ return [
         'not_starts_with' => 'does not start with',
         'ends_with' => 'ends with',
         'not_ends_with' => 'does not end with',
+    ],
+    'priority' => [
+        'low' => 'Low',
+        'medium' => 'Medium',
+        'high' => 'High',
     ],
 ];

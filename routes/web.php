@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Livewire\Budgets\BudgetList;
+use App\Livewire\Budgets\CreateOrEditBudget;
+use App\Livewire\Categories\Create;
+use App\Livewire\Categories\Edit;
+use App\Livewire\RecurringTransactions\Index;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -26,19 +31,34 @@ Route::middleware(['auth'])->group(function (): void {
 
     Route::name('categories.')->prefix('categories')->group(function (): void {
         Route::get('/', \App\Livewire\Categories\Index::class)->name('index')->can('viewAny', WalletCategory::class);
-        Route::get('/create', \App\Livewire\Categories\Create::class)->name('create')->can('create', WalletCategory::class);
-        Route::get('/{walletCategory}/edit', \App\Livewire\Categories\Edit::class)->name('edit')
+        Route::get('/create', Create::class)->name('create')->can('create', WalletCategory::class);
+        Route::get('/{walletCategory}/edit', Edit::class)->name('edit')
             ->can('update', 'walletCategory');
     });
 
     Route::name('recurring-transactions.')->prefix('recurring-transactions')->group(function (): void {
-        Route::get('/', \App\Livewire\RecurringTransactions\Index::class)
+        Route::get('/', Index::class)
             ->name('index');
     });
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    // Budgets
+    Route::name('budgets.')->prefix('budgets')->group(function (): void {
+        Route::get('/', BudgetList::class)
+            ->name('index')
+            ->can('viewAny', \App\Models\Budget::class);
+
+        Route::get('/create', CreateOrEditBudget::class)
+            ->name('create')
+            ->can('create', \App\Models\Budget::class);
+
+        Route::get('/{budget}/edit', CreateOrEditBudget::class)
+            ->name('edit')
+            ->can('update', 'budget');
+    });
 });
 
 require __DIR__.'/auth.php';
