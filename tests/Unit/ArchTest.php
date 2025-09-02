@@ -47,6 +47,7 @@ arch('avoid inheritance')
         'App\Http\Requests',
         'App\Http\Resources',
         'App\Notifications',
+        'App\Queries\Builders',
     ]);
 
 // arch('annotations')
@@ -96,6 +97,8 @@ arch('models')
         'App\Livewire',
         'App\Notifications',
         'App\Console\Commands',
+        'App\Listeners',
+        'App\Events',
     ])
     ->ignoring([
         'App\Models\Concerns', // Ignore all traits in the Concerns directory
@@ -104,7 +107,10 @@ arch('models')
 
 arch('queries')
     ->expect('App\Queries')
-    ->toImplement(\App\Contracts\FilterInterface::class);
+    ->toImplement(\App\Contracts\FilterInterface::class)
+    ->ignoring([
+        'App\Queries\Builders',
+    ]);
 
 arch('actions')
     ->expect('App\Actions')

@@ -7,7 +7,7 @@ namespace App\Policies;
 use App\Models\Budget;
 use App\Models\User;
 
-final class BudgetPolicy
+final readonly class BudgetPolicy
 {
     /**
      * Determine whether the user can view any models.
