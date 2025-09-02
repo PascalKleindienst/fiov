@@ -6,6 +6,7 @@ namespace App\Actions;
 
 use App\Enums\Icon;
 use App\Enums\RecurringFrequency;
+use App\Events\TransactionCreatedEvent;
 use App\Models\RecurringTransaction;
 use App\Models\WalletTransaction;
 use Cknow\Money\Money;
@@ -49,6 +50,8 @@ final readonly class CreateTransaction
                     'is_active' => true,
                 ]);
             }
+
+            TransactionCreatedEvent::dispatch($transaction);
         });
     }
 }
