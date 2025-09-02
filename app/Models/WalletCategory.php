@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -26,6 +27,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletTransaction> $transactions
  * @property-read int|null $transactions_count
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletCategoryRule> $rules
+ * @property-read int|null $rules_count
+ * @property-read \App\Models\BudgetCategory|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Budget> $budgets
+ * @property-read int|null $budgets_count
  *
  * @method static \Database\Factories\WalletCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory newModelQuery()
@@ -38,9 +44,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WalletCategory whereUserId($value)
- *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletCategoryRule> $rules
- * @property-read int|null $rules_count
  *
  * @mixin \Eloquent
  */
@@ -74,6 +77,21 @@ final class WalletCategory extends Model
     public function rules(): HasMany
     {
         return $this->hasMany(WalletCategoryRule::class);
+    }
+
+    /**
+     * @return BelongsToMany<Budget, $this, BudgetCategory>
+     */
+    public function budgets(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Budget::class,
+            'budget_category',
+            'budget_id',
+            'wallet_category_id'
+        )
+            ->using(BudgetCategory::class)
+            ->withPivot('allocated_amount');
     }
 
     /**

@@ -27,6 +27,7 @@ final readonly class DemoData
 
         $this->categories = collect([
             'financial' => $categories->get('Financial') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Financial']),
+            'gaming' => $categories->get('Gaming') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Gaming']),
             'entertainment' => $categories->get('Entertainment') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Entertainment']),
             'household' => $categories->get('Household') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Household']),
             'groceries' => $categories->get('Groceries') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Groceries']),

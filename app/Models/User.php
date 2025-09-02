@@ -49,6 +49,9 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEncryptedDek($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEncryptionSalt($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WalletCategoryRule> $walletCategoryRules
+ * @property-read int|null $wallet_category_rules_count
+ *
  * @mixin \Eloquent
  */
 final class User extends Authenticatable implements MustVerifyEmail

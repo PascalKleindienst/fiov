@@ -23,9 +23,13 @@ final class DemoWalletCategorySeeder extends Seeder
                 'color' => Color::Green->value,
                 'icon' => Icon::Shopping->value,
             ], [
+                'title' => 'Gaming',
+                'color' => Color::Yellow->value,
+                'icon' => Icon::Gamepad->value,
+            ], [
                 'title' => 'Entertainment',
                 'color' => Color::Orange->value,
-                'icon' => Icon::Gamepad->value,
+                'icon' => Icon::TV->value,
             ], [
                 'title' => 'Travel',
                 'color' => Color::Purple->value,

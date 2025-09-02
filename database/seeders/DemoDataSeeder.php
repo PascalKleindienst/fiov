@@ -20,6 +20,8 @@ final class DemoDataSeeder extends Seeder
 
         $this->callWith(DemoRecurringTransactionsSeeder::class, ['demo' => $demoData]);
         $this->callWith(DemoTransactionsSeeder::class, ['demo' => $demoData]);
+
+        $this->callWith(DemoBudgetSeeder::class, ['demo' => $demoData]);
     }
 
     private function createDemoUser(): User
