@@ -38,7 +38,7 @@ final class BudgetBuilder extends Builder
      */
     public function goalBased(): self
     {
-        return $this->whereIn('type', BudgetType::Default);
+        return $this->whereIn('type', BudgetType::goalBasedStates());
     }
 
     /**

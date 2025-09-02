@@ -42,13 +42,16 @@ final class CreateOrEditBudget extends Component
         }
     }
 
-    public function mount(Budget $budget): void
+    public function boot(): void
     {
         abort_if(! auth()->user(), 403);
 
         $this->categories = auth()->user()->walletCategories()->get();
         $this->wallets = auth()->user()->wallets()->get();
+    }
 
+    public function mount(Budget $budget): void
+    {
         $this->authorize('create', Budget::class);
 
         if ($budget->exists) {
