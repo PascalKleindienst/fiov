@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
+use App\Models\WalletTransaction;
 
 final readonly class WalletTransactionPolicy
 {
-    use HandlesAuthorization;
-
     public function viewAny(): bool
     {
         return true;
@@ -25,23 +24,31 @@ final readonly class WalletTransactionPolicy
         return true;
     }
 
-    public function update(): bool
+    public function update(User $user, WalletTransaction $transaction): bool
     {
-        return true;
+        $transaction->loadMissing('wallet');
+
+        return $user->id === $transaction->wallet->user_id;
     }
 
-    public function delete(): bool
+    public function delete(User $user, WalletTransaction $transaction): bool
     {
-        return true;
+        $transaction->loadMissing('wallet');
+
+        return $user->id === $transaction->wallet->user_id;
     }
 
-    public function restore(): bool
+    public function restore(User $user, WalletTransaction $transaction): bool
     {
-        return true;
+        $transaction->loadMissing('wallet');
+
+        return $user->id === $transaction->wallet->user_id;
     }
 
-    public function forceDelete(): bool
+    public function forceDelete(User $user, WalletTransaction $transaction): bool
     {
-        return true;
+        $transaction->loadMissing('wallet');
+
+        return $user->id === $transaction->wallet->user_id;
     }
 }
