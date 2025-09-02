@@ -27,3 +27,11 @@ it('returns the correct symbol for the currency', function (Currency $currency, 
     [Currency::TRY, '₺'],
     [Currency::UAH, '₴'],
 ]);
+
+it('returns the currency values', function(): void {
+    expect(Currency::values())
+        ->toBeArray()
+        ->toContain(
+            'EUR', 'GBP', 'USD', 'CAD', 'ALL', 'AMD', 'AZN', 'BYN', 'BAM', 'BGN', 'CZK', 'DKK', 'GEL', 'HUF', 'MKD', 'PLN', 'RON', 'RSD', 'TRY', 'UAH', 'MDL', 'NOK', 'SEK', 'CHF', 'ISK',
+        );
+});

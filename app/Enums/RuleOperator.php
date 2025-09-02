@@ -7,17 +7,17 @@ namespace App\Enums;
 enum RuleOperator: string
 {
     case Equals = 'equals';
-    case NotEquals = 'notEquals';
+    case NotEquals = 'not_equals';
     case Contains = 'contains';
-    case NotContains = 'notContains';
-    case StartsWith = 'startsWith';
-    case NotStartsWith = 'notStartsWith';
-    case EndsWith = 'endsWith';
-    case NotEndsWith = 'notEndsWith';
-    case GreaterThan = 'greaterThan';
-    case LessThan = 'lessThan';
-    case GreaterThanOrEqual = 'greaterThanOrEqual';
-    case LessThanOrEqual = 'lessThanOrEqual';
+    case NotContains = 'not_contains';
+    case StartsWith = 'starts_with';
+    case NotStartsWith = 'not_starts_with';
+    case EndsWith = 'ends_with';
+    case NotEndsWith = 'not_ends_with';
+    case GreaterThan = 'greater_than';
+    case LessThan = 'less_than';
+    case GreaterThanOrEqual = 'greater_than_or_equal';
+    case LessThanOrEqual = 'less_than_or_equal';
 
     /**
      * @return string[]
