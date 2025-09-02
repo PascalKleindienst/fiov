@@ -1,6 +1,8 @@
 <?php
 
-it('returns the currency values', function(): void {
+declare(strict_types=1);
+
+it('returns the currency values', function (): void {
     expect(\App\Enums\RuleOperator::values())
         ->toBeArray()
         ->toContain(

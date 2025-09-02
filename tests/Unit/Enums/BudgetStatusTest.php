@@ -26,7 +26,7 @@ it('has helpers for the states', function (BudgetStatus $status, string $helper,
     'isPaused (Completed)' => [BudgetStatus::Completed, 'isPaused', false],
 ]);
 
-it('returns the values', function(): void {
+it('returns the values', function (): void {
     expect(BudgetStatus::values())
         ->toBeArray()
         ->toContain(

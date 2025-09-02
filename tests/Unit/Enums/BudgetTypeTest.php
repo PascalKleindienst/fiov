@@ -40,7 +40,7 @@ it('checks if the state is the default state', function (BudgetType $type, $expe
     [BudgetType::SavingsGoal, false],
 ]);
 
-it('returns the values', function(): void {
+it('returns the values', function (): void {
     expect(BudgetType::values())
         ->toBeArray()
         ->toContain(
