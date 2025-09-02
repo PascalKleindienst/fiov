@@ -13,7 +13,7 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
         @forelse ($wallets as $wallet)
             @php
-                /** @var \App\Http\Resources\WalletResource $wallet */
+                /** @var \App\Models\Wallet $wallet */
             @endphp
 
             <div class="flex items-center gap-4 rounded border border-zinc-200 p-4 dark:border-zinc-600">
