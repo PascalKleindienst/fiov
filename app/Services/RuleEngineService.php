@@ -49,7 +49,7 @@ final readonly class RuleEngineService
     {
         $value = $data[$rule->field] ?? null;
         if ($value instanceof Money) {
-            $value = (int) $value->getAmount();
+            $value = $value->getAmount();
         }
 
         return match ($rule->operator) {
