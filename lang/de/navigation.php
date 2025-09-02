@@ -7,4 +7,5 @@ return [
     'transactions' => 'Transaktionen',
     'recurring_transactions' => 'Geplante Transaktionen',
     'settings' => 'Einstellungen',
+    'budgets' => 'Budgets'
 ];

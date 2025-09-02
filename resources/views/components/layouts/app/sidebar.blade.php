@@ -32,6 +32,9 @@
                     >
                         {{ __('navigation.recurring_transactions') }}
                     </flux:navlist.item>
+                    <flux:navlist.item icon="banknotes" :href="route('budgets.index')" :current="request()->routeIs('budgets.*')" wire:navigate>
+                        {{ __('navigation.budgets') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

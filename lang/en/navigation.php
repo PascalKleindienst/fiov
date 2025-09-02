@@ -7,4 +7,5 @@ return [
     'transactions' => 'Transactions',
     'recurring_transactions' => 'Recurring Transactions',
     'settings' => 'Settings',
+    'budgets' => 'Budgets'
 ];
