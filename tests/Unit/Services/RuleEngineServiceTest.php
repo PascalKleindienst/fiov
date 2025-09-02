@@ -10,6 +10,7 @@ use App\Models\WalletCategory;
 use App\Models\WalletCategoryRule;
 use App\Services\RuleEngineService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
@@ -45,7 +46,7 @@ it('casts Money values to integers', function (): void {
         'wallet_category_id' => $category->id,
         'field' => 'amount',
         'operator' => RuleOperator::Equals,
-        'value' => "1234",
+        'value' => '1234',
     ]);
 
     $service = new RuleEngineService();
