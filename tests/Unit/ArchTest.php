@@ -29,6 +29,7 @@ arch('avoid mutation')
         'App\Notifications',
         'App\Casts',
         'App\Console\Commands',
+        \App\Services\StatusCheckService::class,
     ]);
 
 arch('avoid inheritance')
