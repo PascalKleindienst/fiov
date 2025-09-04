@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
@@ -86,4 +87,3 @@ it('denies force delete when user does not own wallet transaction', function ():
 
     expect($this->user->can('forceDelete', $walletTransaction))->toBeFalse();
 });
-

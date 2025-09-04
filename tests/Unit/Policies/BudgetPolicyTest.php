@@ -7,6 +7,7 @@ namespace Tests\Unit\Policies;
 use App\Models\Budget;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
