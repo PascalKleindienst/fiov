@@ -17,7 +17,7 @@
             <template x-for="toast in toasts" :key="toast.id">
                 <div
                     role="alert"
-                    class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/75 p-4 text-sm shadow-xs dark:border-zinc-700/75"
+                    class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/75 bg-white p-4 text-sm shadow-xs dark:border-zinc-700/75 dark:bg-zinc-800"
                     aria-atomic="true"
                     :aria-live="toast.variant === 'danger' ? 'assertive' : 'polite'"
                     x-show="toast.visible"
@@ -27,13 +27,9 @@
                     x-transition:leave="transition duration-200 ease-in"
                     x-transition:leave-start="translate-x-0 opacity-100"
                     x-bind:class="{
-                        'bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-100':
-                            toast.variant === 'success',
-                        'bg-rose-100 text-rose-700 dark:bg-rose-800 dark:text-rose-100':
-                            toast.variant === 'danger',
-                        'bg-amber-100 text-amber-700 dark:bg-amber-800 dark:text-amber-100':
-                            toast.variant === 'warning',
-                        'bg-white dark:bg-zinc-800': ! toast.variant,
+                        'text-green-700 dark:text-green-100': toast.variant === 'success',
+                        'text-rose-700 dark:text-rose-100': toast.variant === 'danger',
+                        ' text-amber-700 dark:text-amber-100': toast.variant === 'warning',
                     }"
                 >
                     <div class="mt-1 shrink-0 self-start" x-cloak x-show="toast.variant">
