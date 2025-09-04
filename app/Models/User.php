@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Enums\UserLevel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -132,8 +131,7 @@ final class User extends Authenticatable implements MustVerifyEmail
     /**
      * @param  Builder<$this>  $query
      */
-    #[Scope]
-    public function admin(Builder $query): void
+    public function scopeAdmin(Builder $query): void
     {
         $query->where('level', UserLevel::Admin);
     }

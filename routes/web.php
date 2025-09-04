@@ -59,6 +59,14 @@ Route::middleware(['auth'])->group(function (): void {
             ->name('edit')
             ->can('update', 'budget');
     });
+
+    // Admin Stuff
+    Route::name('admin.')
+        ->prefix('admin')
+        ->middleware('can:viewAdmin')
+        ->group(function (): void {
+            Route::get('/system', \App\Livewire\Admin\System::class)->name('system');
+        });
 });
 
 require __DIR__.'/auth.php';

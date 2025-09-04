@@ -10,6 +10,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -39,6 +40,7 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('viewPulse', static fn () => app()->isLocal());
+        Gate::define('viewAdmin', static fn () => Auth::user()?->level->isAdmin());
 
         $this->configureCommands();
         $this->configureModels();

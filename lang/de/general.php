@@ -38,4 +38,9 @@ return [
         'medium' => 'Mittel',
         'high' => 'Hoch',
     ],
+    'status' => [
+        'okay' => 'OK',
+        'warning' => 'Warnung',
+        'error' => 'Fehler'
+    ],
 ];
