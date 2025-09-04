@@ -100,6 +100,7 @@ arch('models')
         'App\Console\Commands',
         'App\Listeners',
         'App\Events',
+        'App\Requests',
     ])
     ->ignoring([
         'App\Models\Concerns', // Ignore all traits in the Concerns directory
