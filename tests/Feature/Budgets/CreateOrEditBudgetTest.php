@@ -65,6 +65,7 @@ it('can update an existing budget', function (): void {
         ->set('form.wallet_id', $wallet->id)
         ->set('form.type', BudgetType::Weekly->value)
         ->set('form.start_date', now()->toDateString())
+        ->set('form.end_date', null)
         ->set('form.selectedCategories', [$category->id])
         ->set('form.allocatedAmounts', [$category->id => 2000])
         ->call('save')
