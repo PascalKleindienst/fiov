@@ -7,53 +7,83 @@ namespace Tests\Unit\Policies;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
-use App\Policies\WalletTransactionPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
-    $this->policy = new WalletTransactionPolicy();
+    $this->user = User::factory()->create();
+    $this->wallet = Wallet::factory()->for($this->user)->create();
+    $this->transaction = WalletTransaction::factory()->for($this->wallet)->create();
+    actingAs($this->user);
 });
 
 it('allows view any', function (): void {
-    expect($this->policy->viewAny())->toBeTrue();
+    expect($this->user->can('viewAny', WalletTransaction::class))->toBeTrue();
+});
+
+it('allows view when user owns wallet transaction', function (): void {
+    expect($this->user->can('view', $this->transaction))->toBeTrue();
+});
+
+it('denies view when user does not own wallet transaction', function (): void {
+    $user = User::factory()->create();
+    $wallet = Wallet::factory()->for($user)->create();
+    $walletTransaction = WalletTransaction::factory()->for($wallet, 'wallet')->create();
+
+    expect($this->user->can('view', $walletTransaction))->toBeFalse();
 });
 
 it('allows create', function (): void {
-    expect($this->policy->create())->toBeTrue();
+    expect($this->user->can('create', WalletTransaction::class))->toBeTrue();
 });
 
 it('allows update when user owns wallet transaction', function (): void {
-    $user = User::factory()->create();
-    $wallet = Wallet::factory()->for($user)->create();
-    $walletTransaction = WalletTransaction::factory()->for($wallet)->create();
-
-    expect($this->policy->update($user, $walletTransaction))->toBeTrue();
+    expect($this->user->can('update', $this->transaction))->toBeTrue();
 });
 
 it('denies update when user does not own wallet transaction', function (): void {
     $user = User::factory()->create();
-    $otherUser = User::factory()->create();
-    $otherWallet = Wallet::factory()->for($otherUser)->create();
-    $walletTransaction = WalletTransaction::factory()->for($otherWallet)->create();
+    $wallet = Wallet::factory()->for($user)->create();
+    $walletTransaction = WalletTransaction::factory()->for($wallet, 'wallet')->create();
 
-    expect($this->policy->update($user, $walletTransaction))->toBeFalse();
+    expect($this->user->can('update', $walletTransaction))->toBeFalse();
 });
 
 it('allows delete when user owns wallet transaction', function (): void {
-    $user = User::factory()->create();
-    $wallet = Wallet::factory()->for($user)->create();
-    $walletTransaction = WalletTransaction::factory()->for($wallet)->create();
-
-    expect($this->policy->delete($user, $walletTransaction))->toBeTrue();
+    expect($this->user->can('delete', $this->transaction))->toBeTrue();
 });
 
 it('denies delete when user does not own wallet transaction', function (): void {
     $user = User::factory()->create();
-    $otherUser = User::factory()->create();
-    $otherWallet = Wallet::factory()->for($otherUser)->create();
-    $walletTransaction = WalletTransaction::factory()->for($otherWallet)->create();
+    $wallet = Wallet::factory()->for($user)->create();
+    $walletTransaction = WalletTransaction::factory()->for($wallet, 'wallet')->create();
 
-    expect($this->policy->delete($user, $walletTransaction))->toBeFalse();
+    expect($this->user->can('delete', $walletTransaction))->toBeFalse();
 });
+
+it('allows restore when user owns wallet transaction', function (): void {
+    expect($this->user->can('restore', $this->transaction))->toBeTrue();
+});
+
+it('denies restore when user does not own wallet transaction', function (): void {
+    $user = User::factory()->create();
+    $wallet = Wallet::factory()->for($user)->create();
+    $walletTransaction = WalletTransaction::factory()->for($wallet, 'wallet')->create();
+
+    expect($this->user->can('restore', $walletTransaction))->toBeFalse();
+});
+
+it('allows force delete when user owns wallet transaction', function (): void {
+    expect($this->user->can('forceDelete', $this->transaction))->toBeTrue();
+});
+
+it('denies force delete when user does not own wallet transaction', function (): void {
+    $user = User::factory()->create();
+    $wallet = Wallet::factory()->for($user)->create();
+    $walletTransaction = WalletTransaction::factory()->for($wallet, 'wallet')->create();
+
+    expect($this->user->can('forceDelete', $walletTransaction))->toBeFalse();
+});
+

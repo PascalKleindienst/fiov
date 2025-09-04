@@ -6,7 +6,6 @@ namespace Tests\Unit\Policies;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
@@ -43,7 +42,7 @@ it('allows update when user is itself', function (): void {
     expect($this->user->can('update', $this->user))->toBeTrue();
 });
 
-it('denies update when user does not own budget', function (): void {
+it('denies update when user is not itself', function (): void {
     expect($this->user->can('update', User::factory()->create()))->toBeFalse();
 });
 
@@ -51,7 +50,7 @@ it('allows delete when user is itself', function (): void {
     expect($this->user->can('delete', $this->user))->toBeTrue();
 });
 
-it('denies delete when user does not own budget', function (): void {
+it('denies delete when user is not itself', function (): void {
     expect($this->user->can('delete', User::factory()->create()))->toBeFalse();
 });
 
@@ -59,7 +58,7 @@ it('allows restore when user is itself', function (): void {
     expect($this->user->can('restore', $this->user))->toBeTrue();
 });
 
-it('denies restore when user does not own budget', function (): void {
+it('denies restore when user is not itself', function (): void {
     expect($this->user->can('restore', User::factory()->create()))->toBeFalse();
 });
 
@@ -67,6 +66,6 @@ it('allows force delete when user is itself', function (): void {
     expect($this->user->can('forceDelete', $this->user))->toBeTrue();
 });
 
-it('denies force delete when user does not own budget', function (): void {
+it('denies force delete when user is not itself', function (): void {
     expect($this->user->can('forceDelete', User::factory()->create()))->toBeFalse();
 });
