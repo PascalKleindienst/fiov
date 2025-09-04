@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\UserLevel;
 use App\Facades\CryptoService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -36,13 +37,21 @@ final class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'encryption_salt' => $salt,
             'encrypted_dek' => CryptoService::encryptDEK(CryptoService::generateDEK(), CryptoService::deriveKey('password', $salt)),
+            'level' => UserLevel::User,
         ];
+    }
+
+    public function admin(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'level' => UserLevel::Admin,
+        ]);
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
+    public function unverified(): self
     {
         return $this->state(fn (array $attributes): array => [
             'email_verified_at' => null,
