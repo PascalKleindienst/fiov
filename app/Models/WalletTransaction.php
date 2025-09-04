@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\EncryptedMoneyCast;
 use App\Enums\Icon;
 use App\Models\Concerns\Encryptable;
+use App\Models\Scopes\OwnerScope;
 use Database\Factories\WalletTransactionFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -74,7 +75,7 @@ final class WalletTransaction extends Model
      */
     public function wallet(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class);
+        return $this->belongsTo(Wallet::class)->withoutGlobalScope(OwnerScope::class);
     }
 
     /**

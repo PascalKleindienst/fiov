@@ -6,12 +6,9 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Wallet;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 final readonly class WalletPolicy
 {
-    use HandlesAuthorization;
-
     public function viewAny(): bool
     {
         return true;

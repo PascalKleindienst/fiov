@@ -14,9 +14,11 @@ final readonly class WalletTransactionPolicy
         return true;
     }
 
-    public function view(): bool
+    public function view(User $user, WalletTransaction $transaction): bool
     {
-        return true;
+        $transaction->loadMissing('wallet');
+
+        return $user->id === $transaction->wallet->user_id;
     }
 
     public function create(): bool
