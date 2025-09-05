@@ -58,7 +58,7 @@ expect()->extend('databaseToHaveEncrypted', function (array $data) {
     return $this;
 });
 
-expect()->extend('toBeHexColor', function() {
+expect()->extend('toBeHexColor', function () {
     /** @var \Pest\Expectation $this */
     $value = $this->value;
 

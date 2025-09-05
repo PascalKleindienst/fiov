@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\CreateUser;
 use App\Enums\UserLevel;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+
 use function Pest\Laravel\assertDatabaseHas;
 
 it('creates a new user and a default wallet', function () {
