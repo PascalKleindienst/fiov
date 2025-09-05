@@ -40,7 +40,6 @@ it('can be converted to an array', function (): void {
     expect($instance->toArray())->toBe($expected);
 });
 
-
 it('can be converted to a json string', function (): void {
     $now = new CarbonImmutable();
     $instance = new LicenseInstance('1', 'test.com', $now);
