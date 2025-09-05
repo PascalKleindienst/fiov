@@ -23,7 +23,7 @@ final readonly class DemoData
         $this->user = $user ?? User::factory()->create();
         $this->wallet = $wallet ?? Wallet::factory()->for($this->user)->create();
 
-        $categories = WalletCategory::query()->get()->mapWithKeys(fn (WalletCategory $category) => [$category->title => $category]);
+        $categories = WalletCategory::query()->get()->mapWithKeys(fn (WalletCategory $category): array => [$category->title => $category]);
 
         $this->categories = collect([
             'financial' => $categories->get('Financial') ?? WalletCategory::factory()->for($this->user)->create(['title' => 'Financial']),

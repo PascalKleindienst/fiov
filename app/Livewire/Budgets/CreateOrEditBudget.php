@@ -72,7 +72,7 @@ final class CreateOrEditBudget extends Component
                 'priority' => $budget->priority,
                 'wallet_id' => $budget->wallet_id,
                 'selectedCategories' => $budget->categories->pluck('id')->toArray(),
-                'allocatedAmounts' => $budget->categories->mapWithKeys(static fn (WalletCategory $category) => [
+                'allocatedAmounts' => $budget->categories->mapWithKeys(static fn (WalletCategory $category): array => [
                     $category->id => (float) $category->pivot?->allocated_amount->getAmount() / 100,
                 ])->toArray(),
             ]);
