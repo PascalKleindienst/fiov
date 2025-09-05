@@ -73,7 +73,7 @@
         "test:rector": "rector --dry-run",
         "test:type-coverage": "vendor/bin/pest --type-coverage --memory-limit=1G --min=100",
         "test:lint": "vendor/bin/pint --test",
-        "test:unit": "XDEBUG_MODE=coverage vendor/bin/pest --colors=always --parallel --coverage --min=90",
+        "test:unit": "XDEBUG_MODE=coverage vendor/bin/pest --colors=always --parallel --coverage --min=90 --coverage-clover coverage.xml",
         "test:types": "vendor/bin/phpstan analyse --memory-limit=1G --ansi",
         "test": [
             "@test:lint",
