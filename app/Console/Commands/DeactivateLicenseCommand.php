@@ -34,7 +34,7 @@ final class DeactivateLicenseCommand extends Command
 
         try {
             LicenseService::deactivate();
-            $this->components->info('License has been deactivated. Premium features are now disabled.');
+            $this->components->info('License has been deactivated. Pro features are now disabled.');
 
             return self::SUCCESS;
         } catch (Throwable $throwable) {

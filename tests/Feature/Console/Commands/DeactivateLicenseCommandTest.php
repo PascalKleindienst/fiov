@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Models\License;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\assertDatabaseCount;
 
@@ -21,7 +20,7 @@ it('can deactivate a license', function (): void {
     artisan('fiov:license:deactivate')
         ->expectsConfirmation('Do you want to deactivate your fiov license?', 'yes')
         ->expectsOutputToContain('Deactivating license...')
-        ->expectsOutputToContain('License has been deactivated. Premium features are now disabled.')
+        ->expectsOutputToContain('License has been deactivated. Pro features are now disabled.')
         ->assertExitCode(Command::SUCCESS);
 
     assertDatabaseCount('licenses', 0);

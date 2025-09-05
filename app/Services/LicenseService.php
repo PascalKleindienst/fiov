@@ -13,7 +13,6 @@ use App\Requests\ValidateLicenseRequest;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -42,6 +41,11 @@ final readonly class LicenseService
         return $this->updateLicenseStatus($license);
     }
 
+    /**
+     * @throws LicenseActivationFailedException
+     * @throws Throwable
+     * @throws ConnectionException
+     */
     public function deactivate(?License $license = null): void
     {
         $license ??= License::query()->latest()->first();
@@ -69,6 +73,16 @@ final readonly class LicenseService
             Log::error('Failed to deactivate license', ['key' => $license->key, 'error' => $throwable->getMessage()]);
             throw $throwable;
         }
+    }
+
+    public function isCommunity(): bool
+    {
+        return ! $this->isPro();
+    }
+
+    public function isPro(): bool
+    {
+        return $this->status()->isValid();
     }
 
     public function status(bool $cached = true): LicenseStatus
@@ -104,7 +118,7 @@ final readonly class LicenseService
         Cache::put('license_status', LicenseStatus::Valid, now()->addWeek());
 
         return License::query()->updateOrCreate(
-            ['hash' => Hash::make($license->key->key ?? '')],
+            ['hash' => hash('sha256', $license->key->key ?? '')],
             [
                 'key' => $license->key?->key,
                 'status' => $license->key?->status,

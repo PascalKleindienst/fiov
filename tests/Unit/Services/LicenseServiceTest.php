@@ -215,3 +215,35 @@ it('returns invalid status on connection error', function (): void {
     expect($status)->toBe(LicenseStatus::Invalid)
         ->and(Cache::get('license_status'))->toBe(LicenseStatus::Invalid);
 });
+
+it('returns isPro as true when license status is valid in cache', function () {
+    Cache::put('license_status', LicenseStatus::Valid, 10);
+    $service = new LicenseService();
+
+    expect($service->isPro())->toBeTrue()
+        ->and($service->isCommunity())->toBeFalse();
+});
+
+it('returns isPro as false when license status is invalid in cache', function () {
+    Cache::put('license_status', LicenseStatus::Invalid, 10);
+    $service = new LicenseService();
+
+    expect($service->isPro())->toBeFalse()
+        ->and($service->isCommunity())->toBeTrue();
+});
+
+it('returns isPro as false when license status is no_license in cache', function () {
+    Cache::put('license_status', LicenseStatus::No_License, 10);
+    $service = new LicenseService();
+
+    expect($service->isPro())->toBeFalse()
+        ->and($service->isCommunity())->toBeTrue();
+});
+
+it('returns isPro as false when license status is unknown in cache', function () {
+    Cache::put('license_status', LicenseStatus::Unknown, 10);
+    $service = new LicenseService();
+
+    expect($service->isPro())->toBeFalse()
+        ->and($service->isCommunity())->toBeTrue();
+});
