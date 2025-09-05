@@ -41,6 +41,8 @@ return [
     'status' => [
         'okay' => 'OK',
         'warning' => 'Warnung',
-        'error' => 'Fehler'
+        'error' => 'Fehler',
+        'success' => 'Erfolg',
+        'oh_no'=> 'Upps',
     ],
 ];

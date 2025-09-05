@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Policies;
 
+use App\Enums\LicenseStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 
 use function Pest\Laravel\actingAs;
 
@@ -16,7 +18,9 @@ beforeEach(function (): void {
     actingAs($this->user);
 });
 
-it('bypasses everything for admins', function (string $permission): void {
+it('bypasses everything for admins when we have the pro license', function (string $permission): void {
+    Cache::set('license_status', LicenseStatus::Valid);
+
     actingAs($admin = User::factory()->admin()->create());
     expect($admin->can($permission, User::class))->toBeTrue();
 })->with([

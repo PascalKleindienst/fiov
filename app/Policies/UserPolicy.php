@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Facades\LicenseService;
 use App\Models\User;
 
 final readonly class UserPolicy
 {
     public function before(User $user): ?bool
     {
-        if ($user->level->isAdmin()) {
+        if ($user->level->isAdmin() && LicenseService::isPro()) {
             return true;
         }
 

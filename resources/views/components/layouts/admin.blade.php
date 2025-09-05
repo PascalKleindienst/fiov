@@ -15,6 +15,12 @@
             <div class="flex items-start gap-4 max-md:flex-col">
                 <div class="me-10 w-full pb-4 md:w-[220px]">
                     <flux:navlist>
+                        @can('viewAny', \App\Models\User::class)
+                            <flux:navlist.item :href="route('admin.users')" wire:navigate :current="request()->routeIs('admin.users')">
+                                {{ __('users.index') }}
+                            </flux:navlist.item>
+                        @endcan
+
                         <flux:navlist.item :href="route('admin.system')" wire:navigate :current="request()->routeIs('admin.system')">
                             {{ __('system.index') }}
                         </flux:navlist.item>

@@ -68,3 +68,33 @@ expect()->extend('databaseToHaveEncrypted', function (array $data) {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+function withProLicense(): void
+{
+    \App\Models\License::create(['key' => 'test-123', 'status' => 'activated']);
+    Http::fake([
+        'api.lemonsqueezy.com/v1/licenses/validate' => Http::response([
+            'valid' => true,
+            'instance' => [
+                'id' => 'instance-123',
+                'name' => 'Test Instance',
+                'created_at' => now()->toDateTimeString(),
+            ],
+            'license_key' => [
+                'id' => 1,
+                'key' => 'test-license-key',
+                'status' => 'active',
+                'activation_limit' => 1,
+                'activation_usage' => 1,
+                'created_at' => now()->toDateTimeString(),
+                'expires_at' => now()->addYear()->toDateTimeString(),
+            ],
+            'meta' => [
+                'store_id' => 12345,
+                'customer_id' => 1,
+                'customer_name' => 'Test User',
+                'customer_email' => 'test@example.com',
+            ],
+        ]
+        ),
+    ]);
+}

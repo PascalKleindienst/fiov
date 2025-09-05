@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function (): void {
         ->prefix('admin')
         ->middleware('can:viewAdmin')
         ->group(function (): void {
+            Route::get('/users', \App\Livewire\Admin\Users::class)->name('users')
+                ->middleware(\App\Http\Middleware\RequiresLicenseMiddleware::class);
             Route::get('/system', \App\Livewire\Admin\System::class)->name('system');
         });
 });
