@@ -15,3 +15,15 @@ it('returns the correct css color class', function (Color $color, $css): void {
     [Color::Purple, 'bg-purple-200 dark:bg-purple-600'],
     [Color::Lime, 'bg-lime-200 dark:bg-lime-600'],
 ]);
+
+it('returns the correct rgb value', function (Color $color): void {
+    expect($color->rgb())->toBeHexColor();
+})->with([
+    [Color::Blue],
+    [Color::Green],
+    [Color::Red],
+    [Color::Yellow],
+    [Color::Orange],
+    [Color::Purple],
+    [Color::Lime],
+]);

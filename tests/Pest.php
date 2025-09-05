@@ -58,6 +58,20 @@ expect()->extend('databaseToHaveEncrypted', function (array $data) {
     return $this;
 });
 
+expect()->extend('toBeHexColor', function() {
+    /** @var \Pest\Expectation $this */
+    $value = $this->value;
+
+    // Regex for hex colors: #RGB, #RRGGBB, #RRGGBBAA
+    $isValid = is_string($value) && preg_match('/^#(?:[0-9a-fA-F]{3}){1,2}(?:[0-9a-fA-F]{2})?$/', $value);
+
+    if (! $isValid) {
+        test()->fail("Failed asserting that '{$value}' is a valid hex color.");
+    }
+
+    return expect($value)->toBeString();
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions
