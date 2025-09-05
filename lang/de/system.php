@@ -18,6 +18,12 @@ return [
         'status' => 'Status',
     ],
 
+    'license' => [
+        'title' => 'Lizenz',
+        'licensed_to' => 'Lizenziert an :name <:mail>',
+        'key' => 'Lizenzschlüssel: :key',
+    ],
+
     'php_version' => 'PHP Version',
     'npm_version' => 'NPM Version (optional)',
     'node_version' => 'Node Version (optional)',

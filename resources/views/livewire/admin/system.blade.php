@@ -88,6 +88,21 @@
                     </x-table.cell>
                 </x-table.row>
             @endforeach
+
+            <x-table.row>
+                <x-table.cell>{{ __('system.license.title') }}: {{ $license->instance->name ?? 'Community' }}</x-table.cell>
+                <x-table.cell>
+                    @if ($license)
+                        {{ __('system.license.licensed_to', ['name' => $license->meta?->customerName, 'mail' => $license->meta?->customerEmail]) }}
+                        <br />
+                        {{ __('system.license.key', ['key' => $license->short_key]) }}
+                    @endif
+                </x-table.cell>
+                <x-table.cell>
+                    <flux:icon name="check-circle" color="green" variant="solid" />
+                    <span class="sr-only">{{ __('general.status.okay') }}</span>
+                </x-table.cell>
+            </x-table.row>
         </x-table.rows>
     </x-table>
 </div>

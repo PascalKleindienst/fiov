@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Models\License;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\assertDatabaseCount;
 

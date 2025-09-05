@@ -6,6 +6,7 @@ namespace App\Livewire\Admin;
 
 use App\Concerns\WithBreadcrumbs;
 use App\Data\BreadcrumbItemData;
+use App\Facades\LicenseService;
 use App\Facades\StatusCheckService;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
@@ -23,6 +24,7 @@ final class System extends Component
         $this->withBreadcrumbs(new BreadcrumbItemData(__('system.index')));
 
         return view('livewire.admin.system', [
+            'license' => LicenseService::license(),
             'status' => StatusCheckService::check(),
             'valid' => StatusCheckService::isValid(),
             'errors' => StatusCheckService::hasErrors(),

@@ -97,7 +97,7 @@ final readonly class LicenseService
             return LicenseStatus::No_License;
         }
 
-        // TODO: Validate License to check
+        // Validate License to check
         try {
             $this->updateLicenseStatus(ValidateLicenseRequest::make()->send($license));
 
@@ -113,25 +113,55 @@ final readonly class LicenseService
         return LicenseStatus::Unknown;
     }
 
-    private function updateLicenseStatus(\App\Data\License $license): License
+    public function license(bool $cached = true): ?License
     {
-        Cache::put('license_status', LicenseStatus::Valid, now()->addWeek());
+        if ($cached && Cache::has('license')) {
+            return Cache::get('license');
+        }
 
-        return License::query()->updateOrCreate(
-            ['hash' => hash('sha256', $license->key->key ?? '')],
+        $license = License::query()->latest()->first();
+
+        if (! $license) {
+            Cache::forget('license');
+
+            return null;
+        }
+
+        // Validate License to check
+        try {
+            return $this->updateLicenseStatus(ValidateLicenseRequest::make()->send($license));
+        } catch (ConnectionException|DecryptException) {
+            Cache::put('license', null, now()->addWeek());
+        } catch (Throwable $throwable) {
+            Log::error('Failed to validate license', ['key' => $license->key, 'error' => $throwable->getMessage()]);
+        }
+
+        return null;
+    }
+
+    private function updateLicenseStatus(\App\Data\License $data): License
+    {
+        $license = License::query()->updateOrCreate(
+            ['hash' => hash('sha256', $data->key->key ?? '')],
             [
-                'key' => $license->key?->key,
-                'status' => $license->key?->status,
-                'instance' => $license->instance,
-                'meta' => $license->meta,
-                'expires_at' => $license->key?->expiresAt,
+                'key' => $data->key?->key,
+                'status' => $data->key?->status,
+                'instance' => $data->instance,
+                'meta' => $data->meta,
+                'expires_at' => $data->key?->expiresAt,
             ]
         );
+
+        Cache::put('license_status', LicenseStatus::Valid, now()->addWeek());
+        Cache::put('license', $license, now()->addWeek());
+
+        return $license;
     }
 
     private function delete(License $license): void
     {
         Cache::forget('license_status');
+        Cache::forget('license');
         $license->delete();
     }
 }
