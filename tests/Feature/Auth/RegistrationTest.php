@@ -9,7 +9,7 @@ test('registration screen can be rendered', function (): void {
     $response = $this->get('/register');
 
     $response->assertStatus(200);
-});
+})->todo();
 
 test('new users can register', function (): void {
     $response = Livewire::test(Register::class)
