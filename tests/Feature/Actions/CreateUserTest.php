@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-it('creates a new user and a default wallet', function () {
+it('creates a new user and a default wallet', function (): void {
     Event::fake();
 
     $action = app(CreateUser::class);
@@ -43,12 +43,10 @@ it('creates a new user and a default wallet', function () {
     ]);
 
     // Assert event was dispatched
-    Event::assertDispatched(Registered::class, function ($event) use ($createdUser) {
-        return $event->user->id === $createdUser->id;
-    });
+    Event::assertDispatched(Registered::class, fn ($event): bool => $event->user->id === $createdUser->id);
 });
 
-it('logs in the user if specified', function () {
+it('logs in the user if specified', function (): void {
     $action = app(CreateUser::class);
 
     $data = [
