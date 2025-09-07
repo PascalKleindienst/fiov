@@ -19,6 +19,7 @@ final class FiovStatusCommand extends Command
     public function handle(): int
     {
         $this->components->alert('Checking Fiov setup...');
+        $this->newLine();
 
         $this->checkDirectoryPermissions();
         $this->checkMailConfiguration();

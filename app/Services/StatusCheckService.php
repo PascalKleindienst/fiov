@@ -16,7 +16,7 @@ use Throwable;
 
 final class StatusCheckService
 {
-    public const MIN_PHP_VERSION = '8.2.0';
+    public const MIN_PHP_VERSION = '8.3.0';
 
     public const MIN_NODE_VERSION = '22.0.0';
 
