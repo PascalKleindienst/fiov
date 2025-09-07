@@ -42,7 +42,7 @@ With the command `php artisan fiov:status` you can check the status of Fiov. Thi
 php artisan fiov:status
 ```
 
-![Fiov Status](../../assets/images/fiov-status.png)
+![Fiov Status](../assets/images/fiov-status.png)
 
 
 ## Common Problems
