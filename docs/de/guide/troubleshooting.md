@@ -47,13 +47,42 @@ php artisan fiov:status
 
 ## Häufige Probleme
 
-::: details Berechtigungen
-Stell sicher, dass der Webserver über die erforderlichen Berechtigungen verfügt, um *rekursiv* auf wichtige Ordner wie `storage`,
-`bootstrap/cache` und `public` zuzugreifen.
-Denk auch daran, Artisan-Befehle als Webserver-Benutzer (z. B. `www-data` oder `nginx`) auszuführen, und niemals als `root`,
-da diese Befehle Dateien erstellen können, auf die der Webserver-Benutzer Zugriff haben muss.
-:::
+### Berechtigungsprobleme
+Es muss sichergestellt werden, dass die Verzeichnisse `storage` und `bootstrap/cache` beschreibbar sind. Diese Ordner werden von Laravel zur Speicherung von Cache-Dateien, Session-Daten, kompilierten Templates und Log-Dateien verwendet. Ohne entsprechende Schreibberechtigungen können verschiedene Anwendungsfunktionen nicht ordnungsgemäß ausgeführt werden.
+```bash
+chmod -R 775 storage bootstrap/cache
+```
 
+Zusätzlich sollte überprüft werden, dass der Webserver-Benutzer (meist `www-data`, `apache` oder `nginx`) Eigentümer dieser Verzeichnisse ist:
+```bash
+chown -R www-data:www-data storage bootstrap/cache
+```
+
+### Composer Speicherlimit
+Falls Speicherlimit-Probleme während der Installation von PHP-Abhängigkeiten auftreten, kann das Speicherlimit temporär aufgehoben werden. Dies ist besonders bei größeren Projekten oder auf Servern mit begrenztem Arbeitsspeicher erforderlich. Das Problem äußert sich meist durch Fehlermeldungen wie "Fatal error: Allowed memory size exhausted".
+```bash
+COMPOSER_MEMORY_LIMIT=-1 composer install
+```
+Alternativ kann auch das PHP-Speicherlimit in der `php.ini` dauerhaft erhöht werden:
+```ini
+memory_limit = 512M
+```
+
+### Node.js Version
+Es muss sichergestellt werden, dass eine kompatible Node.js Version (20.x oder höher) verwendet wird. Ältere Versionen können zu Kompilierungsfehlern bei den Frontend-Assets führen oder moderne JavaScript-Features nicht unterstützen. Die aktuell installierte Version kann mit folgendem Befehl überprüft werden:
+```bash
+node --version
+npm --version
+```
+Für die Verwaltung verschiedener Node.js Versionen wird die Verwendung von nvm (Node Version Manager) empfohlen, welches das einfache Wechseln zwischen verschiedenen Node.js Versionen ermöglicht:
+```bash
+# nvm installieren (unter Linux/macOS)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# Neueste LTS Version installieren und verwenden
+nvm install --lts
+nvm use --lts
+```
 
 ## Um Hilfe fragen
 
