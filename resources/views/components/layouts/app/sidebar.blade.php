@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white font-mono dark:bg-zinc-800">
+    <body class="min-h-screen bg-white dark:bg-zinc-800">
         <x-toast />
 
         <flux:sidebar
@@ -13,7 +13,11 @@
         >
             <div class="in-data-flux-sidebar-collapsed-desktop:px-2">
                 <flux:sidebar.header class="not-in-data-flux-sidebar-collapsed-desktop:px-4">
-                    <flux:sidebar.brand :href="route('dashboard')" :logo="asset('assets/logo.svg')" :name="config('app.name')" />
+                    <flux:sidebar.brand :href="route('dashboard')" :name="config('app.name')">
+                        <x-slot name="logo">
+                            <x-app-logo-icon class="size-full" />
+                        </x-slot>
+                    </flux:sidebar.brand>
                     <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
                 </flux:sidebar.header>
             </div>

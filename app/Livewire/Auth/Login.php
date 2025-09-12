@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('components.layouts.auth')]
+#[Title('auth.pages.login_title')]
 final class Login extends Component
 {
     #[Validate('required|string|email')]
