@@ -8,8 +8,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* roboto-slab-900 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/roboto-slab-v35-latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
 @theme {
-    --font-sans: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    --font-serif: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    --font-sans: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
     --font-mono:  ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 
     --color-zinc-50: var(--color-slate-50);
@@ -72,6 +83,10 @@
     select:focus[data-flux-control],
     :focus-visible {
         @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+    }
+
+    button {
+        @apply cursor-pointer;
     }
 }
 
