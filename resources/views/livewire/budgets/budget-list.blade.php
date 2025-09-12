@@ -54,16 +54,11 @@
                 {{ $this->budgets->links() }}
             </div>
         @else
-            <x-card class="space-y-4 py-12 text-center">
-                <div class="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-600">
-                    <flux:icon name="hand-coins" class="size-12" />
-                </div>
-                <flux:heading size="xl">{{ __('budgets.empty.title') }}</flux:heading>
-                <flux:text size="xl">{{ __('budgets.empty.description') }}</flux:text>
+            <x-empty icon="banknotes" title="{{ __('budgets.empty.title') }}" description="{{ __('budgets.empty.description') }}">
                 <flux:button variant="primary" :href="route('budgets.create')" wire:navigate>
                     {{ __('budgets.create') }}
                 </flux:button>
-            </x-card>
+            </x-empty>
         @endif
     </section>
 </div>

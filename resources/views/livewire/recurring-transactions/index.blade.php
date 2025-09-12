@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-bold text-gray-900">{{ __('recurring_transactions.index') }}</h2>
     </div>
 
-    <div class="m grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 gap-4">
         @forelse ($transactions as $transaction)
             {{-- TODO: Move to transaction component --}}
             <div class="flex items-center gap-4 rounded border border-zinc-200 p-4 dark:border-zinc-600">
@@ -95,11 +95,7 @@
                 </div>
             </div>
         @empty
-            <div class="flex items-center justify-center gap-4 rounded border border-dashed border-zinc-200 p-4 dark:border-zinc-600">
-                <flux:heading size="md" class="text-zinc-600 dark:text-zinc-400">
-                    {{ __('recurring_transactions.empty') }}
-                </flux:heading>
-            </div>
+            <x-empty icon="calendar-clock" :description="__('recurring_transactions.empty')" />
         @endforelse
     </div>
 

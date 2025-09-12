@@ -11,7 +11,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        @foreach ($this->categories as $category)
+        @forelse ($this->categories as $category)
             <div class="flex items-center gap-4 rounded border border-zinc-200 p-4 dark:border-zinc-600">
                 <flux:icon
                     :name="$category->icon->value ?? 'wallet'"
@@ -62,7 +62,13 @@
                     @endcan
                 </div>
             </div>
-        @endforeach
+        @empty
+            <x-empty icon="tags" description="{{ __('categories.empty') }}" class="col-span-full">
+                <flux:button variant="primary" :href="route('categories.create')" wire:navigate>
+                    {{ __('categories.create') }}
+                </flux:button>
+            </x-empty>
+        @endforelse
     </div>
     {{ $this->categories->links() }}
 </div>
