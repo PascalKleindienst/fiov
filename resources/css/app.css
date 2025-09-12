@@ -83,13 +83,13 @@
     @apply  !mb-0 !leading-tight;
 }
 
-[data-flux-navlist-item] {
-    @apply px-6 lg:h-10 border-0 border-l-4 border-transparent rounded-none;
+[data-flux-sidebar-item] {
+    @apply px-6 lg:h-10 border-0 border-l-4 border-transparent rounded-none w-auto transition-colors;
 }
 
-[data-flux-navlist-item]:hover,
-[data-flux-navlist-item][data-current] {
-    @apply bg-zinc-800/5 border-zinc-300 border-l-4 text-zinc-800 dark:bg-zinc-50/5 dark:border-zinc-500 dark:text-zinc-50;
+[data-flux-sidebar-item]:hover,
+[data-flux-sidebar-item][data-current] {
+    @apply bg-zinc-800/5 border-zinc-300 border-l-4 text-zinc-800 dark:bg-zinc-50/5 dark:border-zinc-500 dark:text-zinc-50 w-auto;
 }
 
 

@@ -3,9 +3,11 @@
 @endphp
 
 @if ($breadcrumbs ?? false)
-    <flux:breadcrumbs class="mb-6">
-        <flux:breadcrumbs.item :href="route('dashboard')" :title="__('navigation.dashboard')" wire:navigate>
-            <flux:icon name="home" aria-label="Home" />
+    <flux:breadcrumbs class="hidden md:flex">
+        <flux:breadcrumbs.item :href="route('dashboard')" wire:navigate>
+            <flux:tooltip :content="__('navigation.dashboard')">
+                <flux:icon name="home" aria-label="Home" />
+            </flux:tooltip>
         </flux:breadcrumbs.item>
 
         @foreach ($breadcrumbs as $breadcrumb)
