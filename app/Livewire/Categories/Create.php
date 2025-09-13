@@ -9,8 +9,10 @@ use App\Data\BreadcrumbItemData;
 use App\Livewire\Concerns\WithRules;
 use App\Livewire\Forms\WalletCategoryForm;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('categories.create')]
 final class Create extends Component
 {
     use WithBreadcrumbs;

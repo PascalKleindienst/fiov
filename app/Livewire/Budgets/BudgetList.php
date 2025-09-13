@@ -10,6 +10,7 @@ use App\Models\Budget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +20,7 @@ use function in_array;
 /**
  * @property-read LengthAwarePaginator<int, Budget> $budgets
  */
+#[Title('budgets.index')]
 final class BudgetList extends Component
 {
     use WithBreadcrumbs;

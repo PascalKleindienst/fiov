@@ -44,6 +44,7 @@ final class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.categories.create-or-edit');
+        return view('livewire.categories.create-or-edit')
+            ->title(__('categories.edit', ['name' => $this->form->model?->title]));
     }
 }

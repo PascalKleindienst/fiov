@@ -1,7 +1,5 @@
-<div>
-    <div class="mb-6 flex items-center justify-between">
-        <h2 class="text-2xl font-bold text-gray-900">{{ __('recurring_transactions.index') }}</h2>
-    </div>
+<div class="space-y-6">
+    <x-sections.header :title="__('recurring_transactions.index')" />
 
     <div class="grid grid-cols-1 gap-4">
         @forelse ($transactions as $transaction)

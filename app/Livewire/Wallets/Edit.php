@@ -39,6 +39,7 @@ final class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.wallets.create-or-edit');
+        return view('livewire.wallets.create-or-edit')
+            ->title(__('wallets.edit', ['name' => $this->form->model?->title]));
     }
 }

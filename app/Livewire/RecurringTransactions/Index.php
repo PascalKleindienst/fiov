@@ -9,9 +9,11 @@ use App\Data\BreadcrumbItemData;
 use App\Models\RecurringTransaction;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('recurring_transactions.index')]
 final class Index extends Component
 {
     use WithBreadcrumbs;

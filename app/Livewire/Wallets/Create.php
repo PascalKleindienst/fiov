@@ -9,8 +9,10 @@ use App\Data\BreadcrumbItemData;
 use App\Livewire\Forms\WalletForm;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('wallets.create')]
 final class Create extends Component
 {
     use WithBreadcrumbs;

@@ -1,18 +1,9 @@
 <div class="space-y-6 max-md:pt-6">
-    <div class="relative mb-6 w-full">
-        <flux:heading size="xl" level="1">
-            @if ($form->model)
-                {{ __('wallets.edit', ['name' => $form->model->title]) }}
-            @else
-                {{ __('wallets.create') }}
-            @endif
-        </flux:heading>
-        {{-- <flux:subheading size="lg" class="mb-6"> --}}
-        {{-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto beatae commodi consequuntur delectus dolores eius eos eum fuga, --}}
-        {{-- maiores, odit pariatur, quibusdam sapiente sequi! Blanditiis consequatur esse itaque nulla quae! --}}
-        {{-- </flux:subheading> --}}
-        {{-- <flux:separator variant="subtle" /> --}}
-    </div>
+    @if ($form->model)
+        <x-sections.header :title="__('wallets.edit', ['name' => $form->model->title])" />
+    @else
+        <x-sections.header :title="__('wallets.create')" />
+    @endif
 
     <form wire:submit.prevent="save" class="grid w-full max-w-4xl gap-6 space-y-6 md:grid-cols-2">
         <flux:input :label="__('wallets.fields.title')" wire:model="form.title" required />
@@ -53,8 +44,11 @@
 
         <flux:error name="form.capability" />
 
-        <flux:button variant="primary" type="submit" class="col-span-full">
+        <flux:button variant="primary" type="submit">
             {{ __('general.save') }}
+        </flux:button>
+        <flux:button variant="ghost" :href="route('wallets.index')">
+            {{ __('general.cancel') }}
         </flux:button>
     </form>
 </div>

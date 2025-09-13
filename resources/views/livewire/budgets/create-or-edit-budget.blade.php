@@ -5,20 +5,11 @@
 @endphp
 
 <div class="space-y-6 max-md:pt-6">
-    <div class="relative mb-6 w-full">
-        <flux:heading size="xl" level="1">
-            @if ($form->isEdit)
-                {{ __('budgets.edit', ['name' => $form->model->title]) }}
-            @else
-                {{ __('budgets.create') }}
-            @endif
-        </flux:heading>
-        @if (! $form->isEdit)
-            <flux:subheading size="lg" class="mb-6">
-                {{ __('budgets.create_description') }}
-            </flux:subheading>
-        @endif
-    </div>
+    @if ($form->isEdit)
+        <x-sections.header :title="__('budgets.edit', ['name' => $form->model->title])" />
+    @else
+        <x-sections.header :title="__('budgets.create')" :lead="__('budgets.create_description')" />
+    @endif
 
     {{-- Form --}}
     <form wire:submit.prevent="save" class="space-y-6 max-md:pt-6">
@@ -159,13 +150,12 @@
             </div>
             {{-- </x-card> --}}
 
-            <div class="flex justify-end space-x-3">
-                <flux:button variant="ghost" :href="route('budgets.index')" wire:navigate>
-                    {{ __('general.cancel') }}
-                </flux:button>
-
+            <div class="flex justify-start space-x-3">
                 <flux:button variant="primary" type="submit">
                     {{ __('general.save') }}
+                </flux:button>
+                <flux:button variant="ghost" :href="route('budgets.index')" wire:navigate>
+                    {{ __('general.cancel') }}
                 </flux:button>
             </div>
         </div>

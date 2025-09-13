@@ -11,6 +11,7 @@ use App\Models\Budget;
 use App\Models\Wallet;
 use App\Models\WalletCategory;
 use Flux\Flux;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
@@ -48,6 +49,15 @@ final class CreateOrEditBudget extends Component
 
         $this->categories = auth()->user()->walletCategories()->get();
         $this->wallets = auth()->user()->wallets()->get();
+    }
+
+    public function render(): View
+    {
+        return view('livewire.budgets.create-or-edit-budget')
+            ->title($this->form->isEdit
+                ? __('budgets.edit', ['name' => $this->form->model?->title])
+                : __('budgets.create')
+            );
     }
 
     public function mount(Budget $budget): void

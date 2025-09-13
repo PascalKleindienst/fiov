@@ -1,14 +1,11 @@
 <div class="space-y-6">
-    <div class="flex items-center justify-between gap-4">
-        <flux:heading size="xl" level="1">
-            {{ __('categories.index') }}
-        </flux:heading>
-        @can('create', App\Models\Wallet::class)
-            <flux:button variant="primary" :href="route('categories.create')" wire:navigate class="mb-4">
-                {{ __('categories.create') }}
-            </flux:button>
-        @endcan
-    </div>
+    <x-sections.header
+        :title="__('categories.index')"
+        :can:action="auth()->user()->can('create', App\Models\WalletCategory::class)"
+        :action:text="__('categories.create')"
+        :action:href="route('categories.create')"
+        action:icon="plus"
+    />
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         @forelse ($this->categories as $category)

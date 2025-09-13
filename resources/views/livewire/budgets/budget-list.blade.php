@@ -4,17 +4,14 @@
 @endphp
 
 <div class="space-y-6">
-    <div class="flex items-center justify-between gap-4">
-        <div>
-            <flux:heading size="xl" level="1">{{ __('budgets.index') }}</flux:heading>
-            <flux:text>{{ __('budgets.index_description') }}</flux:text>
-        </div>
-        @can('create', App\Models\Budget::class)
-            <flux:button variant="primary" :href="route('budgets.create')" wire:navigate class="mb-4">
-                {{ __('budgets.create') }}
-            </flux:button>
-        @endcan
-    </div>
+    <x-sections.header
+        :title="__('budgets.index')"
+        :lead="__('budgets.index_description')"
+        :can:action="auth()->user()->can('create', App\Models\Budget::class)"
+        :action:text="__('budgets.create')"
+        :action:href="route('budgets.create')"
+        action:icon="plus"
+    />
 
     <section>
         <!-- Search and Filters -->
