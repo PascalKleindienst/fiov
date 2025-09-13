@@ -4,7 +4,7 @@
     $statuses = \App\Enums\BudgetStatus::cases();
 @endphp
 
-<div class="space-y-6 max-md:pt-6">
+<div class="max-w-7xl space-y-6 max-md:pt-6">
     @if ($form->isEdit)
         <x-sections.header :title="__('budgets.edit', ['name' => $form->model->title])" />
     @else
@@ -130,17 +130,17 @@
             <div class="">
                 <x-progress
                     :title="__('budgets.categories.total_allocated')"
-                    :label="Number::currency($this->totalAllocatedAmount, $form->currency, locale: app()->getLocale())"
+                    :label="money($this->totalAllocatedAmount, $form->currency)"
                     :variant="$this->totalAllocatedAmount > $form->amount ? 'danger' : 'info'"
                     :value="$form->amount > 0 ? min(100, ($this->totalAllocatedAmount / $form->amount) * 100) : 0"
                     size="md"
                 />
                 <div class="my-1 flex justify-between">
                     <flux:text variant="subtle">
-                        {{ Number::currency(0, $form->currency, locale: app()->getLocale()) }}
+                        <x-money amount="0" :currency="$form->currency" />
                     </flux:text>
                     <flux:text variant="subtle">
-                        {{ Number::currency($form->amount, $form->currency, locale: app()->getLocale()) }}
+                        <x-money :amount="$form->amount" :currency="$form->currency" />
                     </flux:text>
                 </div>
 
@@ -150,7 +150,7 @@
             </div>
             {{-- </x-card> --}}
 
-            <div class="flex justify-start space-x-3">
+            <div class="grid grid-cols-2 justify-start gap-4">
                 <flux:button variant="primary" type="submit">
                     {{ __('general.save') }}
                 </flux:button>

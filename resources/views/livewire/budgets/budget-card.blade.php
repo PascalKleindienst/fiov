@@ -15,9 +15,9 @@
                 {{ $budget->title }}
 
                 @if ($budget->type->isGoalBased())
-                    <button title="{{ $budget->priority->label() }}">
+                    <flux:tooltip :content="__('budgets.fields.priority') . ': ' . $budget->priority->label()">
                         <flux:icon :name="$budget->priority->icon()" class="{{ $budget->priority->color() }} size-4" />
-                    </button>
+                    </flux:tooltip>
                 @endif
             </flux:heading>
 
