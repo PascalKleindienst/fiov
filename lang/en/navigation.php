@@ -2,7 +2,7 @@
 
 return [
     'dashboard' => 'Dashboard',
-    'wallets' => 'Accounts',
+    'wallets' => 'Wallets',
     'categories' => 'Categories',
     'transactions' => 'Transactions',
     'recurring_transactions' => 'Recurring Transactions',
