@@ -4,6 +4,8 @@ import path from 'path';
 import { defineConfig } from 'vitepress';
 import timelinePlugin from 'vitepress-markdown-timeline';
 
+const baseUrl = 'https://pascalkleindienst.github.io/fiov/';
+
 export default defineConfig({
     // Site metadata
     title: 'Fiov',
@@ -176,7 +178,7 @@ export default defineConfig({
 
     // Sitemap configuration
     sitemap: {
-        hostname: 'https://localhost'
+        hostname: baseUrl
     },
 
     // Vite configuration
