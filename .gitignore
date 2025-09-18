@@ -27,4 +27,5 @@ _ide_helper.php
 /docs/.vitepress/cache/
 /dist
 /coverage.xml
+/playground
 
