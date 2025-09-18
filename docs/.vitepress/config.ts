@@ -1,16 +1,20 @@
 import { fileURLToPath, URL } from 'node:url';
+import path from 'path';
+// import svgLoader from 'vite-svg-loader';
 import { defineConfig } from 'vitepress';
 import timelinePlugin from 'vitepress-markdown-timeline';
-
-// https://vitepress.dev/reference/site-config
 
 export default defineConfig({
     // Site metadata
     title: 'Fiov',
     description: 'Financial Overview',
+    head: [['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }]],
+    base: '/fiov/',
 
     // Theme configuration
     themeConfig: {
+        logo: '/logo.svg',
+
         // i18n configuration
         i18nRouting: true,
 
@@ -19,6 +23,10 @@ export default defineConfig({
 
         // Social links (can be overridden per-locale)
         socialLinks: [{ icon: 'github', link: 'https://github.com/pascalkleindienst/fiov' }],
+
+        outline: {
+            level: 'deep'
+        },
 
         // Search configuration (can be overridden per-locale)
         search: {
@@ -63,8 +71,8 @@ export default defineConfig({
                         {
                             text: 'Introduction',
                             items: [
-                                { text: 'Getting Started', link: '/guide/' },
-                                { text: 'Installation', link: '/guide/installation' },
+                                { text: 'Was ist Fiov?', link: '/guide/' },
+                                { text: 'Getting Started', link: '/guide/getting-started' },
                                 { text: 'Local Development', link: '/guide/local-development' },
                                 // { text: 'CLI Commands', link: '/guide/cli-commands' },
                                 { text: 'Troubleshooting', link: '/guide/troubleshooting' }
@@ -76,6 +84,7 @@ export default defineConfig({
                                 { text: 'Wallets', link: '/usage/wallets' },
                                 { text: 'Categories', link: '/usage/categories' },
                                 { text: 'Transactions', link: '/usage/transactions' },
+                                { text: 'Budgets', link: '/usage/budgets' },
                                 { text: 'Configuration', link: '/usage/configuration' }
                             ]
                         }
@@ -107,11 +116,11 @@ export default defineConfig({
                         {
                             text: 'Anleitung',
                             items: [
-                                { text: 'Erste Schritte', link: '/de/guide/' },
-                                { text: 'Installation', link: '/de/guide/installation' },
-                                { text: 'Local Development', link: '/de/guide/local-development' },
+                                { text: 'Was ist Fiov?', link: '/de/guide/' },
+                                { text: 'Erste Schritte', link: '/de/guide/getting-started' },
+                                { text: 'Lokale Entwicklung', link: '/de/guide/local-development' },
                                 // { text: 'CLI Commands', link: '/de/guide/cli-commands' },
-                                { text: 'Troubleshooting', link: '/de/guide/troubleshooting' }
+                                { text: 'Fehlerbehebung', link: '/de/guide/troubleshooting' }
                             ]
                         },
                         {
@@ -120,6 +129,7 @@ export default defineConfig({
                                 { text: 'Konten', link: '/de/usage/wallets' },
                                 { text: 'Kategorien', link: '/de/usage/categories' },
                                 { text: 'Transaktionen', link: '/de/usage/transactions' },
+                                { text: 'Budgets', link: '/de/usage/budgets' },
                                 { text: 'Einstellungen', link: '/de/usage/configuration' }
                             ]
                         }
@@ -171,10 +181,32 @@ export default defineConfig({
 
     // Vite configuration
     vite: {
+        // plugins: [svgLoader()],
         resolve: {
             alias: {
-                '@': fileURLToPath(new URL('../../src', import.meta.url))
+                '@': fileURLToPath(new URL('../../src', import.meta.url)),
+                '@layouts': path.resolve(__dirname, 'layout/'),
+                '@assets': path.resolve(__dirname, 'assets/')
             }
+        }
+    },
+
+    transformHead({ assets }) {
+        const font = assets.find(() => /.\w+\.woff2/);
+
+        if (font) {
+            return [
+                [
+                    'link',
+                    {
+                        rel: 'preload',
+                        href: font,
+                        as: 'font',
+                        type: 'font/woff2',
+                        crossorigin: ''
+                    }
+                ]
+            ];
         }
     }
 });
