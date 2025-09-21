@@ -33,4 +33,11 @@ final class WalletFactory extends Factory
             'user_id' => User::factory(),
         ];
     }
+
+    public function archived(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'deleted_at' => now(),
+        ]);
+    }
 }

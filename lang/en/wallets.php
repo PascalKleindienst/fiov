@@ -17,5 +17,11 @@ return [
 
     'confirm_delete' => 'Are you sure you want to delete this account?',
     'confirm_delete_desc' => 'Are you sure you want to delete this account? All your transactions in this account will be lost',
+
+    'show_archived' => 'Show archived wallets',
+    'archived' => 'Wallet ":name" archived',
+    'reactivated' => 'Wallet ":name" reactivated',
+    'archive' => 'Archive',
+    'reactivate' => 'Reactivate',
 ];
 

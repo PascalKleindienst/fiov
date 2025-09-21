@@ -54,6 +54,7 @@ final class BudgetList extends Component
     {
         return Budget::query()
             ->with(['wallet', 'categories'])
+            ->whereHas('wallet')
             ->when($this->type, static fn (Builder $query, string $type): Builder => $query->where('type', $type))
             ->when($this->status, static fn (Builder $query, string $status): Builder => $query->where('status', $status))
             ->orderBy('end_date', 'asc')
