@@ -20,10 +20,30 @@ it('requires authentication to access the component', function (): void {
     get(route('recurring-transactions.index'))->assertOk();
 });
 
+it('does not show recurring transactions of archived wallets', function (): void {
+    $count = RecurringTransaction::count();
+    RecurringTransaction::factory()
+        ->count(3)
+        ->for(User::first())
+        ->for(\App\Models\Wallet::factory()->for(User::first())->archived()->create())
+        ->create();
+
+    Livewire::actingAs(User::first())->test(Index::class)
+        ->assertViewHas('transactions', static function ($transactions) use ($count): true {
+            expect($transactions)->toHaveCount($count);
+
+            return true;
+        });
+});
+
 it('shows a paginated list of recurring transactions for the authenticated user', function (): void {
     Livewire::actingAs(User::first())->test(Index::class)
         ->assertViewIs('livewire.recurring-transactions.index')
-        ->assertSee(RecurringTransaction::orderBy('title')->first()?->title)
+        ->assertSee(RecurringTransaction::query()
+            ->with(['wallet', 'category'])
+            ->whereRelation('wallet', 'deleted_at', null)
+            ->latest()->first()?->title
+        )
         ->assertOk();
 });
 
