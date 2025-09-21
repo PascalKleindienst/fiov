@@ -40,6 +40,7 @@ final class Index extends Component
 
         return view('livewire.recurring-transactions.index', [
             'transactions' => RecurringTransaction::with(['wallet', 'category'])
+                ->whereHas('wallet')
                 ->latest()
                 ->paginate(10),
         ]);

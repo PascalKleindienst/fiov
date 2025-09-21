@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Wallet;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertSoftDeleted;
 use function Pest\Laravel\get;
 
 it('requires authentication to access the component', function (): void {
@@ -37,7 +36,7 @@ it('can delete a wallet if authorized', function (): void {
         ->assertDispatched('toast-show')
         ->assertDispatched('modal-close', name: 'confirm-deletion-'.$wallet->id);
 
-    assertSoftDeleted($wallet);
+    \Pest\Laravel\assertModelMissing($wallet);
 });
 
 it('cannot delete a category if not authorized', function (): void {
@@ -50,4 +49,46 @@ it('cannot delete a category if not authorized', function (): void {
         ->assertForbidden();
 
     \Pest\Laravel\assertNotSoftDeleted($wallet);
+});
+
+it('can archive a wallet if authorized', function (): void {
+    $user = User::factory()->create();
+    $wallet = Wallet::factory()->for($user, 'user')->create();
+
+    Livewire::actingAs($user)->test(Index::class)
+        ->call('archiveWallet', $wallet)
+        ->assertDispatched('toast-show');
+
+    expect($wallet->fresh()->trashed())->toBeTrue();
+});
+
+it('can reactivate a wallet if authorized', function (): void {
+    $user = User::factory()->create();
+    $wallet = Wallet::factory()->for($user, 'user')->create(['deleted_at' => now()]);
+
+    Livewire::actingAs($user)->test(Index::class)
+        ->call('restoreWallet', $wallet->id)
+        ->assertDispatched('toast-show');
+
+    expect($wallet->fresh()->trashed())->toBeFalse();
+});
+
+it('does not show archived wallets by default', function (): void {
+    $user = User::factory()->create();
+    Wallet::factory()->for($user, 'user')->create();
+    Wallet::factory()->for($user, 'user')->create(['deleted_at' => now()]);
+
+    Livewire::actingAs($user)->test(Index::class)
+        ->assertViewHas('wallets', fn ($wallets): bool => $wallets->count() === 1);
+});
+
+it('shows archived wallets when showArchived is true', function (): void {
+    $user = User::factory()->create();
+    $activeWallet = Wallet::factory()->for($user, 'user')->create();
+    $archivedWallet = Wallet::factory()->for($user, 'user')->create(['deleted_at' => now()]);
+
+    Livewire::actingAs($user)->test(Index::class)
+        ->set('showArchived', true)
+        ->assertSee($activeWallet->title)
+        ->assertSee($archivedWallet->title);
 });

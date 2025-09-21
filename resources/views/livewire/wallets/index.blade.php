@@ -7,6 +7,10 @@
         action:icon="plus"
     />
 
+    <div class="flex justify-end">
+        <flux:checkbox :label="__('wallets.show_archived')" wire:model.live="showArchived" />
+    </div>
+
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
         @forelse ($wallets as $wallet)
             @php
@@ -20,29 +24,51 @@
                     class="{{ $wallet->color?->css() ?? 'bg-zinc-200 dark:bg-zinc-600' }} size-12 rounded p-2"
                 />
                 <div>
-                    <flux:heading size="lg">{{ $wallet->title }}</flux:heading>
+                    <flux:heading size="lg" class="flex items-center gap-2">
+                        {{ $wallet->title }}
+                        @if ($wallet->trashed())
+                            <flux:tooltip :content="__('wallets.archived', ['name' => $wallet->title])">
+                                <flux:icon name="archive" class="size-4" />
+                            </flux:tooltip>
+                        @endif
+                    </flux:heading>
                     <flux:subheading class="hidden md:block">{{ $wallet->description }}</flux:subheading>
                 </div>
-                <div class="ml-auto flex gap-2">
-                    @can('update', $wallet)
-                        <flux:button
-                            wire:navigate
-                            :title="__('wallets.edit', ['name' => $wallet->title])"
-                            :href="route('wallets.edit', $wallet)"
-                            icon="pencil"
-                        ></flux:button>
-                    @endcan
+                <div class="ml-auto">
+                    <flux:dropdown>
+                        <flux:button icon="ellipsis-vertical" variant="subtle" aria-label="{{ __('general.actions') }}" />
+                        <flux:menu>
+                            @can('update', $wallet)
+                                <flux:menu.item :href="route('wallets.edit', $wallet)" wire:navigate icon="pencil">
+                                    {{ __('general.edit') }}
+                                </flux:menu.item>
+                            @endif
 
-                    @can('delete', $wallet)
-                        <flux:modal.trigger name="confirm-deletion-{{ $wallet->id }}">
-                            <flux:button
-                                :title="__('wallets.delete', ['name' => $wallet->title])"
-                                variant="danger"
-                                class="cursor-pointer"
-                                icon="trash"
-                            ></flux:button>
-                        </flux:modal.trigger>
+                            @if ($wallet->trashed())
+                                @can('restore', $wallet)
+                                    <flux:menu.item icon="archive" wire:click="restoreWallet({{ $wallet->id }})">
+                                        {{ __('wallets.reactivate') }}
+                                    </flux:menu.item>
+                                @endcan
+                            @else
+                                @can('delete', $wallet)
+                                    <flux:menu.item icon="archive" wire:click="archiveWallet({{ $wallet->id }})">
+                                        {{ __('wallets.archive') }}
+                                    </flux:menu.item>
+                                @endcan
+                            @endif
 
+                            @can('force-delete', $wallet)
+                                <flux:modal.trigger name="confirm-deletion-{{ $wallet->id }}">
+                                    <flux:menu.item variant="danger" icon="trash">
+                                        {{ __('general.delete') }}
+                                    </flux:menu.item>
+                                </flux:modal.trigger>
+                            @endcan
+                        </flux:menu>
+                    </flux:dropdown>
+
+                    @can('force-delete', $wallet)
                         <flux:modal name="confirm-deletion-{{ $wallet->id }}" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
                             <form wire:submit="deleteWallet({{ $wallet->id }})" class="space-y-6">
                                 <div>
@@ -68,11 +94,7 @@
                 </div>
             </div>
         @empty
-            <div class="flex items-center justify-center gap-4 rounded border border-dashed border-zinc-200 p-4 dark:border-zinc-600">
-                <flux:heading size="md" class="text-zinc-600 dark:text-zinc-400">
-                    {{ __('wallets.empty') }}
-                </flux:heading>
-            </div>
+            <x-empty icon="wallet" :description="__('wallets.empty')" class="col-span-full" />
         @endforelse
     </div>
 

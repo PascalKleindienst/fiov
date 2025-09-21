@@ -17,4 +17,10 @@ return [
 
     'confirm_delete' => 'Dieses Konto wirklich löschen?',
     'confirm_delete_desc' => 'Sind Sie sicher, dass Sie dieses Konto löschen wollen? All Ihre Transaktionen in diesem Konto gehen dabei verloren.',
+
+    'show_archived' => 'Archivierte Konten anzeigen',
+    'archived' => 'Konto ":name" archiviert',
+    'reactivated' => 'Konto ":name" reaktiviert',
+    'archive' => 'Archivieren',
+    'reactivate' => 'Reaktivieren',
 ];
