@@ -1,11 +1,14 @@
-// .vitepress/theme/index.ts or .vitepress/theme/index.js
-import Theme from 'vitepress/theme';
-
-import 'vitepress-markdown-timeline/dist/theme/index.css';
+import { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import CustomHomepage from '../layout/CustomHomepage.vue';
+import Layout from '../layout/Layout.vue';
+import './custom.pcss';
 
 export default {
-    ...Theme,
+    Layout,
+    extends: DefaultTheme,
     enhanceApp(ctx) {
-        Theme.enhanceApp(ctx);
+        DefaultTheme.enhanceApp(ctx);
+        ctx.app.component('custom-homepage', CustomHomepage);
     }
-};
+} satisfies Theme;

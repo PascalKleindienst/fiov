@@ -1,8 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 import path from 'path';
-// import svgLoader from 'vite-svg-loader';
 import { defineConfig } from 'vitepress';
-import timelinePlugin from 'vitepress-markdown-timeline';
 
 const baseUrl = 'https://pascalkleindienst.github.io/fiov/';
 
@@ -69,10 +67,7 @@ export default defineConfig({
             description: 'Financial Overview',
             themeConfig: {
                 // English-specific navigation
-                nav: [
-                    { text: 'Introduction', link: '/guide/' },
-                    { text: 'Usage', link: '/usage/' }
-                ],
+                nav: [{ text: 'Introduction', link: '/guide/' }],
                 // English sidebar configuration
                 sidebar: {
                     '/': [
@@ -114,10 +109,7 @@ export default defineConfig({
             description: 'Finanzübersicht',
             themeConfig: {
                 // German-specific navigation
-                nav: [
-                    { text: 'Anleitung', link: '/de/guide/' },
-                    { text: 'Verwendung', link: '/de/usage/' }
-                ],
+                nav: [{ text: 'Anleitung', link: '/de/guide/' }],
                 // German sidebar configuration
                 sidebar: {
                     '/': [
@@ -175,11 +167,7 @@ export default defineConfig({
 
     // Markdown configuration
     markdown: {
-        lineNumbers: true,
-        // Configure the MDX components
-        config: (md) => {
-            md.use(timelinePlugin);
-        }
+        lineNumbers: true
     },
 
     // Sitemap configuration
