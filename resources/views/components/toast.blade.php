@@ -4,7 +4,7 @@
             x-cloak
             x-show="toasts.length > 0"
             role="region"
-            class="fixed z-50 flex w-full max-w-md cursor-auto gap-2 overflow-hidden"
+            class="fixed z-50 flex w-full max-w-md cursor-auto gap-2"
             x-bind:class="{
                 'flex-col-reverse': position === 'top-start' || position === 'top-end',
                 'flex-col': position === 'bottom-start' || position === 'bottom-end',
@@ -17,7 +17,7 @@
             <template x-for="toast in toasts" :key="toast.id">
                 <div
                     role="alert"
-                    class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/75 bg-white p-4 text-sm shadow-xs dark:border-zinc-700/75 dark:bg-zinc-800"
+                    class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/75 bg-white p-4 text-sm shadow-lg dark:border-zinc-700/75 dark:bg-zinc-800"
                     aria-atomic="true"
                     :aria-live="toast.variant === 'danger' ? 'assertive' : 'polite'"
                     x-show="toast.visible"
