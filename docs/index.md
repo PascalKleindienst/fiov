@@ -13,7 +13,7 @@ fiov_hero:
       text: View API
       link: /api/
   image:
-    src: /assets/images/dashboard.png
+    src: /dashboard.png
     alt: 
 
 fiov_features:

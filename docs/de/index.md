@@ -10,7 +10,7 @@ fiov_hero:
           text: Loslegen
           link: /de/guide/
     image:
-        src: /assets/images/dashboard.png
+        src: /dashboard.png
         alt:
 
 fiov_features:
