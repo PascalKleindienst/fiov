@@ -24,7 +24,7 @@
 
             @persist('sidebar')
                 <flux:sidebar.nav>
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" wire:navigate wire:current="dashboard">
+                    <flux:sidebar.item icon="home" :href="route('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                     <flux:sidebar.item icon="wallet" :href="route('wallets.index')" wire:current="wallets.*" wire:navigate>
