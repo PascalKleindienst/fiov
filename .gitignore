@@ -26,6 +26,6 @@ _ide_helper.php
 /docs/.vitepress/dist/
 /docs/.vitepress/cache/
 /dist
-/coverage.xml
 /playground
-
+coverage.xml
+junit.xml
