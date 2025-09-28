@@ -13,11 +13,11 @@ use Illuminate\Database\Eloquent\Builder;
  */
 final readonly class TransactionsByInterval implements FilterInterface
 {
-    public const WEEK = 'week';
+    public const string WEEK = 'week';
 
-    public const MONTH = 'month';
+    public const string MONTH = 'month';
 
-    public const YEAR = 'year';
+    public const string YEAR = 'year';
 
     public function __construct(
         private string $interval,

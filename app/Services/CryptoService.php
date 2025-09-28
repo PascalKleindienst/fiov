@@ -17,7 +17,7 @@ use SensitiveParameter;
  */
 final readonly class CryptoService
 {
-    public const DEK_SESSION_KEY = 'data_encryption_key';
+    public const string DEK_SESSION_KEY = 'data_encryption_key';
 
     private string $cipher;
 

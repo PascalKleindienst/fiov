@@ -6,9 +6,11 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
+use Override;
 
 final class LicenseServiceProvider extends ServiceProvider
 {
+    #[Override]
     public function register(): void
     {
         Http::macro('lemonsqueezy', fn (string $url = '') => Http::baseUrl('https://api.lemonsqueezy.com/v1/'.$url));

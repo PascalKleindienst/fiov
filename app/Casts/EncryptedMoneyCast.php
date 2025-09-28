@@ -7,6 +7,7 @@ namespace App\Casts;
 use Cknow\Money\Casts\MoneyDecimalCast;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 final class EncryptedMoneyCast extends MoneyDecimalCast
 {
@@ -17,6 +18,7 @@ final class EncryptedMoneyCast extends MoneyDecimalCast
      * @param  string  $value
      * @param  array<string, int|string>  $attributes
      */
+    #[Override]
     public function get($model, string $key, mixed $value, array $attributes): ?\Cknow\Money\Money  // @pest-ignore-type
     {
         try {
@@ -33,6 +35,7 @@ final class EncryptedMoneyCast extends MoneyDecimalCast
      * @param  array{currency?: string}  $attributes
      * @return array{value: string|null, currency: string}|mixed
      */
+    #[Override]
     public function set($model, string $key, mixed $value, array $attributes): mixed  // @pest-ignore-type
     {
         try {

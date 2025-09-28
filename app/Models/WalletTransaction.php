@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Override;
 
 /**
  * @property int $id
@@ -65,6 +66,7 @@ final class WalletTransaction extends Model
         'wallet_category_id',
     ];
 
+    #[Override]
     public function getRouteKeyName(): string
     {
         return 'transaction_id';
@@ -96,6 +98,7 @@ final class WalletTransaction extends Model
         );
     }
 
+    #[Override]
     protected static function boot(): void
     {
         parent::boot();

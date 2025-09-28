@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
+use Override;
 
 use function in_array;
 
@@ -17,6 +18,7 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
         // Telescope::night();
@@ -55,6 +57,7 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      *
      * This gate determines who can access Telescope in non-local environments.
      */
+    #[Override]
     protected function gate(): void
     {
         Gate::define('viewTelescope', static fn (User $user): bool => in_array($user->email, [

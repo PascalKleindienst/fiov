@@ -16,11 +16,11 @@ use Throwable;
 
 final class StatusCheckService
 {
-    public const MIN_PHP_VERSION = '8.3.0';
+    public const string MIN_PHP_VERSION = '8.3.0';
 
-    public const MIN_NODE_VERSION = '22.0.0';
+    public const string MIN_NODE_VERSION = '22.0.0';
 
-    public const MIN_NPM_VERSION = '10.0.0';
+    public const string MIN_NPM_VERSION = '10.0.0';
 
     private readonly MessageBagContract $errors;
 

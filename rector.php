@@ -25,4 +25,4 @@ return RectorConfig::configure()
         strictBooleans: true,
         rectorPreset: true,
     )
-    ->withPhpSets(php82: true);
+    ->withPhpSets();
